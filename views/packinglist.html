@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PackPal - Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style/styles.css">
+
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+        }
+
+         .dashboard-container {
+            display: flex;
+            flex-direction: column;
+            /* align-items: center;
+            justify-content: center; */
+            width: 100%;
+            max-height: 100vh;
+            /* max-width: 400px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 30px; */
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 15px;
+            background-color: #E4EFE7;
+            padding-top: 2.3rem;
+            font-size: 12px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+
+        }
+
+        .logo img {
+            height: 25px;
+            width: 25px;
+        }
+
+        .logo span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #9EBC8A;
+            border-radius: 50%;
+            height: 40px;
+            width: 40px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .main {
+
+            margin-top: .5rem;
+        }
+
+        .dashboard-text {
+            font-size: 14px;
+            font-weight: 650;
+            color: #404040;
+            margin-top: 10px;
+            max-width: 200px;
+        }
+        .dashboard-header {
+            font-size: 14px;
+            margin-top: 15px;
+        }
+
+
+        .dashboard-button {
+            background-color: #9EBC8A;
+            color: rgb(0, 0, 0);
+            font-weight: bolder;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 35px;
+            font-size: 16px;
+            margin-top: 2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+            padding: 15px 0;
+            background-color: #e4efe7;
+            z-index: 9999;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+        }
+
+        li {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        li a {
+            color: #404040;
+            margin-top: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .main-list {
+            padding: .5rem;
+            display: flex;  
+            flex-direction: column;
+            gap: 1rem;
+            overflow: scroll;
+            height: 70vh;
+            padding-bottom: 7rem;
+        }
+
+        .main-list::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category {
+            border: solid rgb(0, 0, 0) 1px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            width: 340px;
+            height: fit-content;
+            padding: .5rem;
+        }
+
+        .category-header {
+            padding: .2rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .item-list {
+            display: flex;
+            flex-direction: column;
+            gap: .5rem;
+            font-size: 15px;
+        }
+
+        .add-item-con {
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            padding: .5rem;
+            padding-top: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .add-item-con i {
+            color: #9EBC8A;
+            font-size: 20px;
+            font-weight: bolder;
+        }
+
+        .packing-items {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: .5rem;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .packing-items .item {
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+        }
+
+        .packing-items .item input[type="checkbox"] {
+            width: 15px;
+            height: 15px;
+            border: initial;
+            margin-top: 2px;
+
+        }
+
+        .packing-items .item-btn {
+            display: flex;
+            gap: .5rem;
+            font-size: 12px;
+        }
+
+        .packing-items span {
+            content: "";
+            width: 2px;
+            height: 15px;
+            border: solid 1px #4c4c4c;
+            display: inline-block;
+        }
+
+
+.packing-items::after {
+    content: "";
+    position: absolute;
+    width: calc(100% - 1rem); /* Account for padding */
+    height: 2.5px;
+    bottom: -2px; /* Position below the item */
+    left: 0.5rem; /* Match padding */
+    background-color: rgba(12, 12, 12, 0.307);
+    z-index: 1;
+}
+    </style>
+
+</head>
+
+<body>
+    <div class="main-con">
+        <div class="dashboard-container">
+        <header>
+            <div class="logo">
+                <span>
+                    <img src="/images/Logo.png" alt="">
+                </span>
+                <h1>PackPal</h1>
+            </div>
+
+        </header>
+
+        <div class="dashboard-header">
+
+            <h1>PACKING LIST</h1>
+        </div>
+        <!-- step-one -->
+        <div class="main">
+            <div class="main-list">
+                <div class="category">
+                    <div class="category-header">
+                        <h3>Personal Items</h3>
+                    </div>
+                    <!-- list of all items -->
+                    <div class="item-list">
+                        <!-- specific item -->
+                    </div>
+                    <div class="add-item-con">
+                            <i class="fas fa-plus-circle"></i>
+                            <p>Add Personal Items</p>
+                        </div>
+                </div>
+
+                <div class="category">
+                    <div class="category-header">
+                        <h3>Electronics</h3>
+                    </div>
+                    <!-- list of all items -->
+                    <div class="item-list">
+                        <!-- specific item -->
+                        
+                            <div class="item-btn">
+                                <a href="">Edit</a>
+                                <span></span>
+                                <a href="">Delete</a>
+                            </div>
+                    
+                        </div>
+                        <div class="add-item-con">
+                            <i class="fas fa-plus-circle"></i>
+                            <p>Add Personal Items</p>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+           
+        </div>
+
+        <nav>
+            <ul>
+                <li>
+                    <a href="/views/dashboard.html"><img src="/images/SVGs/InactivePlaneIcon.svg" alt=""></a>
+                    <a href="/views/dashboard.html"> Trips </a>
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    <a href="/views/templates.html"><img src="/images/SVGs/ActiveTemplateIcon.svg" alt=""></a>
+                    <a href="/views/templates.html"> Templates </a>
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    <a href="/views/profile.html">                    <img src="/images/SVGs/InactiveProfileIcon.svg" alt="">
+</a>
+                    <a href="/views/profile.html"> Profile</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    </div>
+<script src="/script/userManagement.js"></script>
+<script src="templates.html"></script>
+<script src="/script/autoGeneratedList.js" ></script>
+
+</body>
+
+</html>

@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PackPal-Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style/styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        body {
+            background-color: #FFFDF6;
+            /* display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px; */
+        }
+
+        h1 {
+            font-family: 'Exo 2', sans-serif;
+        }
+
+        /* main login form */
+        .login-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            /* width: 100%;
+            max-width: 400px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 30px; */
+            text-align: center;
+        }
+
+        .feedback {
+            font-size: 12px;
+            color: red;
+            display:none;
+        }
+
+        .header-con {
+            text-align: center;
+            padding: 4rem;
+            font-size: 20px;
+        }
+
+        .login-inputs {
+            display: flex;
+            flex-direction: column;
+            gap: .8rem;
+        }
+
+        .login-inputs input {
+            background-color: #FFFDF6;
+            width: 300px;
+            padding: 14px;
+            border: none;
+            border-bottom: 1.5px solid #404040;
+            font-size: 16px;
+        }
+
+        input:focus {
+            outline: none;
+        }
+
+        .password {
+            position: relative;
+        }
+
+        .password i {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #404040;
+        }
+
+        /* <i class="fa-regular fa-eye-slash"></i> 
+            for transition between eye and eye-slash
+        */
+
+
+        .login-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 5px;
+        }
+
+        .upper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #404040;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .save-login {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .save-login input {
+            width: 15px;
+            height: 15px;
+            border: initial;
+            margin-top: 4px;
+        }
+
+
+        .lower {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .login-btn-con {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: .8rem;
+        }
+
+        .login-btn {
+            width: 300px;
+            padding: 12px;
+            background-color: #9EBC8A;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background-color: #357ab8;
+        }
+
+        .login-btn-con p {
+            font-size: 14px;
+            color: #404040;
+        }
+
+        .login-btn {
+            color: black;
+            text-decoration: none;
+            font-weight: bolder;
+            text-align: center;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            width: 300px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        .divider:not(:empty)::before {
+            margin-right: .75em;
+        }
+
+        .divider:not(:empty)::after {
+            margin-left: .75em;
+        }
+
+        .divider span {
+            color: #1a1a1a;
+            font-size: 17px;
+            padding: .5rem;
+            background-color: #FFFDF6;
+            margin-bottom: 3px;
+        }
+
+        .third-party-btn {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .social-btn {
+            width: 300px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background-color: white;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .social-btn:hover {
+            background-color: #f0f0f0;
+        }
+
+        .facebook-btn {
+            color: #ffffff;
+            background-color: #3b5998;
+            border-color: #3b5998;
+        }
+
+        .facebook-btn i {
+            font-size: 20px;
+        }
+
+        .google-btn {
+            color: #000000;
+            border-color: #000000;
+            background-color: #FFFDF6;
+        }
+
+        /* overlay style */
+
+        .overlay-con {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 2.5rem;
+            padding: 30px;
+            margin: auto;
+        }
+
+        .navigation nav button {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #404040;
+        }
+
+        .navigation>i {
+            font-size: 20px;
+        }
+
+        .navigation nav button i {
+            margin-right: 8px;
+        }
+
+        header {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: #404040;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .form-con {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .form-con input {
+            width: 300px;
+            padding: 14px;
+            border: none;
+            border-bottom: 1.5px solid #404040;
+            font-size: 16px;
+        }
+
+        .form-con button {
+            width: 300px;
+            padding: 12px;
+            background-color: #9EBC8A;
+            border: none;
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-con>button a {
+            color: black;
+            text-decoration: none;
+        }
+
+        .form-con button:hover {
+            background-color: #357ab8;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            width: 300px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        /* transitions */
+        .overlay-default {
+            display: none;
+        }
+
+
+        /* login function */
+
+        .overlay-default {
+    display: none;
+}
+
+.overlay-active {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    z-index: 1000;
+}
+
+.error {
+    border-bottom-color: red !important;
+}
+
+.login-btn {
+    width: 300px;
+    padding: 12px;
+    background-color: #9EBC8A;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    color: black;
+    text-decoration: none;
+    font-weight: bolder;
+    text-align: center;
+    display: block;
+}
+
+.login-btn:hover {
+    background-color: #8aac76;
+}
+
+.forgot p {
+    cursor: pointer;
+    color: #404040;
+    text-decoration: underline;
+    font-size: 14px;
+}
+
+.forgot p:hover {
+    color: #9EBC8A;
+}
+    </style>
+
+
+</head>
+
+<body>
+    <div class="login-container">
+        <div class="header-con">
+            <h1 class="">Login</h1>
+        </div>
+        <div class="input-con">
+            <div class="login-inputs">
+                <input type="email" name="email" id="userEmail" placeholder="enter email address">
+                <div class="password">
+                    <input type="password" name="password" id="userPassword" placeholder="enter password">
+                    <i id="login-eye-icon" class="fa-regular fa-eye-slash"></i>
+                </div>
+            </div>
+            <div class="login-buttons">
+                <div class="upper">
+                    <div class="save-login">
+                        <input type="checkbox" name="save" id="save">
+                        <label for="save">remember me</label>
+                    </div>
+                    <div class="forgot">
+                        <p>forgot password?</p>
+                    </div>
+                </div>
+                <p class="feedback">Login failed</p>
+
+                <div class="lower">
+                    <div class="login-btn-con">
+    <button class="login-btn">Login</button>
+    <p>don't have an account?
+        <a href="/views/signup.html">Signup</a>
+    </p>
+</div>
+                    <div class="divider">
+                        <span>or</span>
+                    </div>
+                    <div class="third-party-btn">
+                        <button class="social-btn facebook-btn">
+                            <i class="fa-brands fa-facebook"></i> continue with Facebook
+                        </button>
+                        <button class="social-btn google-btn">
+                            <i class="fab fa-google"></i> continue with Google
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+    <div class="overlay-con overlay-default">
+        <div class="navigation">
+            <nav>
+                <button>
+                    <i class="fa-solid fa-chevron-left"></i>Go back
+                </button>
+            </nav>
+        </div>
+        <header>
+            <h1> Forgot password</h1>
+            <p> We'll send your password reset into the email address linked to your account</p>
+        </header>
+
+        <div class="form-con">
+            <input type="email" name="email" id="email" placeholder="enter email address">
+            <button>
+                <a href="/views/index.html"> Recover Password</a>
+            </button>
+        </div>
+        </div>
+<!-- put in bottom of each page -->
+<script src="/script/login.js"></script>
+ <script src="/script/userManagement.js"></script>
+
+</body>
+
+</html>

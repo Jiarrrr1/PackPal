@@ -1,0 +1,174 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Open Sans', sans-serif;
+}
+
+body {
+  background-color: #FFFDF6;
+  /* display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px; */
+}
+
+h1, 
+h3,
+h2,
+.item-menu p {
+  font-family: 'Exo 2', sans-serif;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.dashboard-container {
+            align-items: center;
+            justify-content: center;
+}
+
+
+
+
+
+.dashboard-header i {
+  font-size: 30px;
+  color: #454545;
+  padding-right: 2rem;
+}
+
+.dashboard-header h1 {
+  font-size: 30px;
+  font-weight: 800;
+}
+
+
+
+
+.backdrop {
+  position: fixed;
+  /* Always stay in the same position */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  /* Full width of the screen */
+  height: 100vh;
+  /* Full height of the screen */
+  background: rgba(0, 0, 0, 0.6);
+  /* Dark semi-transparent background */
+  z-index: 9999;
+  /* Make sure it’s on top of everything */
+  display: flex;
+  /* Center any content inside */
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(1.5px);
+  /* Optional blur effect */
+}
+
+.backdrop-content {
+  background: rgb(23, 23, 23);
+  color: #FFFDF6;
+  padding: 60px 160px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  z-index: 10000;
+  text-align: center;
+}
+
+
+.active {
+  display: flex;
+}
+
+.inactive {
+  display: none;
+}
+
+
+/* Indicator */
+.indicator {
+  width: 300px;
+  height: 30px;
+  display: block;
+}
+
+.divider {
+  width: 300px;
+  height: 2px;
+  background-color: #000000;
+  border-radius: 2px;
+  margin: .5rem 0;
+}
+
+/* Connector line */
+.connector {
+  stroke: #a8c39c;
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+/* Default dot style */
+.step {
+  fill: #d9d9d9;
+  transition: fill 0.3s ease;
+}
+
+/* Active/completed steps */
+.step.active {
+  fill: #7ca879;
+}
+
+/* Mobile font-size adjustments */
+@media (max-width: 600px) {
+  h1 {
+    font-size: 1.5rem;
+  }
+  h2 {
+    font-size: 1.2rem;
+  }
+  h3 {
+    font-size: 1rem;
+  }
+  p, li a, .dashboard-text, .packing-text, .date{
+    font-size: 1rem;
+  }
+  .login-btn, .signup-btn, .dashboard-button, .social-btn {
+    font-size: 1rem;
+    padding: 10px;
+  }
+  nav {
+    font-size: 0.9rem;
+    padding: 10px 0;
+  }
+  .header-con {
+    font-size: 1.1rem;
+    padding: 2rem;
+  }
+}
+
+/* @media (max-width: 380px) {
+        .trip-image-con {
+
+            overflow:visible;
+        }
+
+        .trip-con .destination {
+          margin-top: 7rem;
+        }
+
+        .trip-con .divider {
+          height: 5px;
+        }
+} */

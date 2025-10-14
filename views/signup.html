@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PackPal-signup</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style/styles.css">
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Open Sans',sans-serif;
+        }
+
+        body {
+            background-color: #FFFDF6;
+            /* display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px; */
+        }
+
+        h1{
+            font-family: 'Exo 2', sans-serif;
+        }
+
+         .deletion-overlay {
+            width: 320px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 27px;
+            text-align: center;
+        }
+
+        .deletion-overlay h2 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #f0f0f0;
+        }
+
+        .deletion-overlay i {
+            font-size: 30px;
+            margin-bottom: 20px;
+            color:#00C851 ;
+        }
+
+        .deletion-overlay .buttons {
+            display: flex;
+            justify-content: center;
+        }
+
+        .deletion-overlay .buttons button {
+            padding: 10px 50px;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-weight: 800;
+        }
+
+
+        .deletion-overlay .buttons .confirm-btn {
+            background-color: #9EBC8A;
+            color: rgb(23, 23, 23);
+        }
+
+/* main signup form */
+        .signup-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            /* width: 100%;
+            max-width: 400px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 30px; */
+        }
+
+        .header-con {
+            text-align: center;
+            padding: 4rem;
+            font-size: 20px;
+        }
+
+        .signup-inputs {
+            display: flex;
+            flex-direction: column;
+            gap: .8rem;
+        }
+
+        .signup-inputs input {
+            background-color: #FFFDF6;
+            width: 300px;
+            padding: 14px;
+            border: none;
+            border-bottom: 1.5px solid #404040;
+            font-size: 16px;
+        }
+
+        .password {
+            position: relative;
+        }
+
+        .password i {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #404040;
+        }
+
+        /* <i class="fa-regular fa-eye-slash"></i> 
+            for transition between eye and eye-slash
+        */
+
+        .signup-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 5px;
+        }
+
+        .upper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #404040;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .save-signup {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .save-signup input {
+            width: 15px;
+            height: 15px;
+            border: initial;
+            margin-top: 4px;
+        }
+
+
+        .lower {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .signup-btn-con {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: .8rem;
+        }
+
+        .signup-btn {
+            width: 300px;
+            padding: 12px;
+            background-color: #9EBC8A;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .signup-btn:hover {
+            background-color: #357ab8;
+        }
+
+        .signup-btn-con p {
+            font-size: 14px;
+            color: #404040;
+        }
+
+        .signup-btn {
+            color: black;
+            text-decoration: none;
+            font-weight: bolder;
+             color: black;
+            text-align: center;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            width: 300px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        .divider:not(:empty)::before {
+            margin-right: .75em;
+        }
+
+        .divider:not(:empty)::after {
+            margin-left: .75em;
+        }
+
+        .divider span {
+            color: #1a1a1a;
+            font-size: 17px;
+            padding: .5rem;
+            background-color: #FFFDF6;
+            margin-bottom: 3px;
+        }
+
+        .third-party-btn {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .social-btn {
+            width: 300px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background-color: white;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .social-btn:hover {
+            background-color: #f0f0f0;
+        }
+
+        .facebook-btn {
+            color: #ffffff;
+            background-color: #3b5998;
+            border-color: #3b5998;
+        }
+
+        .facebook-btn i {
+            font-size: 20px;
+        }
+
+        .google-btn {
+            color: #000000;
+            border-color: #000000;
+            background-color: #FFFDF6;
+        }
+
+        /* Error states */
+input.error {
+    border-bottom-color: red !important;
+}
+
+input:focus {
+    outline: none;
+    border-bottom-color: #9EBC8A !important;
+}
+
+/* Loading state */
+.signup-btn.loading {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* Success state */
+input.success {
+    border-bottom-color: #9EBC8A !important;
+}
+
+/* Password strength indicator */
+.password-strength {
+    height: 4px;
+    margin-top: 5px;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.password-strength.weak {
+    background-color: #ff4444;
+    width: 33%;
+}
+
+.password-strength.medium {
+    background-color: #ffaa00;
+    width: 66%;
+}
+
+.password-strength.strong {
+    background-color: #00C851;
+    width: 100%;
+}
+
+    </style>
+
+
+</head>
+
+<body>
+    <div class="signup-container">
+        <div class="header-con">
+            <h1>Signup</h1>
+        </div>
+        <div class="input-con">
+            <div class="signup-inputs">
+                <input type="email" name="email" id="email" placeholder="enter email address">
+                <div class="password">
+                    <input type="password" name="password" id="password" placeholder="enter password"> 
+                    <i class="fa-regular fa-eye-slash"></i>
+                </div>
+                <div class="password">
+                    <input type="password" name="confirmPassword" id="confirmPassword" placeholder="confirm password"> 
+                    <i class="fa-regular fa-eye-slash"></i>
+                </div>
+            </div>
+            <div class="signup-buttons">
+                <div class="lower">
+                    <div class="signup-btn-con">
+                        <button class="signup-btn">Signup</button>
+                        <p>already have an account?
+                            <a href="/index.html">Login</a>
+                        </p>
+                    </div>
+                    <div class="divider">
+                        <span>or</span>
+                    </div>
+                    <div class="third-party-btn">
+                        <button class="social-btn facebook-btn">
+                            <i class="fa-brands fa-facebook"></i> continue with Facebook
+                        </button>
+                        <button class="social-btn google-btn">
+                            <i class="fab fa-google"></i> continue with Google
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="backdrop inactive">
+        <div class="backdrop-content deletion-overlay">
+            <h2 class="confirmation-text"></h2>
+            <i class=""></i>
+            <div class="buttons">
+                <button class="confirm-btn">OK</button>
+            </div>
+        </div>
+    </div>
+    <Script src="/script/userManagement.js"></Script>
+    <script src="/script/signUpManagement.js"></script>
+</body>
+
+</html>

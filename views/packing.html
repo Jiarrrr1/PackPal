@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PackPal - packing</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style/styles.css">
+
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .dashboard-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-height: 100vh;
+            /* max-width: 400px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 30px; */
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 15px;
+            background-color: #E4EFE7;
+            padding-top: 2.3rem;
+            font-size: 12px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+
+        }
+
+        .logo img {
+            height: 25px;
+            width: 25px;
+        }
+
+        .logo span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #9EBC8A;
+            border-radius: 50%;
+            height: 40px;
+            width: 40px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .main>input::placeholder {
+            font-weight: bold;
+        }
+
+        .packing-header {
+            font-size: 14px;
+            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+
+
+
+        .packing-text {
+            margin-top: 3rem;
+            width: 50%;
+            font-size: 14px;
+            font-weight: 600;
+            color: #404040;
+        }
+
+
+
+        .control-btn {
+            display: flex;
+            justify-content: space-around;
+            gap: 5rem;
+            width: 270px;
+            margin: 0 auto;
+        }
+
+        .control-btn button {
+            background-color: #9EBC8A;
+            color: rgb(0, 0, 0);
+            font-weight: bolder;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 25px;
+            width: 100px;
+            font-size: 12px;
+            margin-top: 2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+            padding: 15px 0;
+            background-color: #E4EFE7;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+                        z-index: 9999;
+
+        }
+
+        li {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        li a {
+            color: #404040;
+            margin-top: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        input:focus {
+            outline: none;
+            border: none;
+        }
+
+        /* controls */
+        .active {
+            display: flex;
+        }
+
+        .inactive {
+            display: none;
+        }
+
+        /* step one */
+
+        .step-one-form {
+            margin-top: 7.8rem;
+        }
+
+        .step-one-form input {
+            margin-top: 2rem;
+            padding: 10px;
+            width: 280px;
+            background-color: transparent;
+            border: none;
+            border-bottom: 1px solid #ccc;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .step-one-form p {
+            width: auto;
+            font-size: 14px;
+            font-weight: 600;
+            color: #404040;
+        }
+
+        .step-one-form button {
+            background-color: #9EBC8A;
+            color: rgb(0, 0, 0);
+            font-weight: bolder;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 35px;
+            font-size: 16px;
+            margin-top: 2rem;
+            margin-left: 10rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        /* step two */
+
+        .step-two-form {
+            margin-top: 7.8rem;
+        }
+
+        .step-two-form input {
+            margin-top: 2rem;
+            padding: 10px;
+            width: 260px;
+            background-color: transparent;
+            border: none;
+            border-bottom: 1px solid #ccc;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .step-two-form p {
+            width: auto;
+            font-size: 14px;
+            font-weight: 600;
+            color: #404040;
+        }
+
+        /* step three */
+
+        .step-three-form {
+            margin-top: 2.5rem;
+        }
+
+        .step-three-form img {
+            margin-top: 1rem;
+            height: 130px;
+            width: 300px;
+        }
+
+        .step-three-form input {
+            margin-top: 2rem;
+            padding: 10px;
+            width: 260px;
+            background-color: transparent;
+            border: none;
+            border-bottom: 1px solid #ccc;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .step-three-form p {
+            width: auto;
+            font-size: 14px;
+            font-weight: 600;
+            color: #404040;
+            margin-top: 2rem;
+        }
+
+        .step-three-form .image-con {
+            position: relative;
+        }
+
+        .step-three-form .image-text {
+            display: flex;
+            align-items: center;
+            width: 260px;
+            gap: 7rem;
+            margin-left: 23px;
+            top: -13px;
+            position: absolute;
+        }
+
+        /* Tep four and Five*/
+
+        .step-four-form {
+            margin-top: .1rem;
+        }
+
+        .step-four-form .options-con {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            margin-right: 80px;
+        }
+
+        .step-four-form .checkbox-con {
+            display: flex;
+            flex-direction: column;
+            gap: .8rem;
+        }
+
+        .step-four-form .checkbox-con input {
+            width: 15px;
+            height: 15px;
+            accent-color: #E4EFE7;
+            border: none;
+            cursor: pointer;
+        }
+
+        .step-four-form .label-con {
+            display: flex;
+            flex-direction: column;
+            gap: .6rem;
+            font-size: 14px;
+            font-weight: 600;
+            color: #404040;
+            text-align: left;
+        }
+
+        .step-four-form p {
+            width: auto;
+            font-size: 14px;
+            font-weight: 600;
+            color: #404040;
+        }
+
+        /* Step five */
+       
+
+        .step-five-form .options-con {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            padding-bottom: 59px;
+        }
+
+        .step-five-form .checkbox-con {
+            display: flex;
+            flex-direction: column;
+            gap: .8rem;
+        }
+
+        .step-five-form .checkbox-con input {
+            width: 15px;
+            height: 15px;
+            accent-color: #E4EFE7;
+            border: none;
+            cursor: pointer;
+        }
+
+        .step-five-form .label-con {
+            display: flex;
+            flex-direction: column;
+            gap: .6rem;
+            font-size: 14px;
+            font-weight: 600;
+            color: #404040;
+            text-align: left;
+        }
+
+        .step-five-form p {
+            width: auto;
+            font-size: 14px;
+            font-weight: 600;
+            color: #404040;
+        }
+
+        /* Step six */
+        .step-six-form .options-con {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            margin-right: 80px;
+            padding-bottom: 88px;
+        }
+
+        .step-six-form .checkbox-con {
+            display: flex;
+            flex-direction: column;
+            gap: .8rem;
+        }
+
+        .step-six-form .checkbox-con input {
+            width: 15px;
+            height: 15px;
+            accent-color: #E4EFE7;
+            border: none;
+            cursor: pointer;
+        }
+
+        .step-six-form .label-con {
+            display: flex;
+            flex-direction: column;
+            gap: .6rem;
+            font-size: 14px;
+            font-weight: 600;
+            color: #404040;
+            text-align: left;
+        }
+
+        .step-six-form p {
+            width: auto;
+            font-size: 14px;
+            font-weight: 600;
+            color: #404040;
+        }
+
+        /* step seven  */
+
+        .step-seven-form .options-con {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            margin-right: 50px;
+            padding-bottom: 30px;
+        }
+
+        .step-seven-form .checkbox-con {
+            display: flex;
+            flex-direction: column;
+            gap: .8rem;
+        }
+
+        .step-seven-form .checkbox-con input {
+            width: 15px;
+            height: 15px;
+            accent-color: #E4EFE7;
+            border: none;
+            cursor: pointer;
+        }
+
+        .step-seven-form .label-con {
+            display: flex;
+            flex-direction: column;
+            gap: .6rem;
+            font-size: 14px;
+            font-weight: 600;
+            color: #404040;
+            text-align: left;
+        }
+
+        .step-seven-form p {
+            width: auto;
+            font-size: 14px;
+            font-weight: 600;
+            color: #404040;
+        }
+        /* step eight  */
+        .step-eight-form .options-con {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            margin-right: 80px;
+            padding-bottom: 117px;
+        }
+        .step-eight-form .checkbox-con {
+            display: flex;
+            flex-direction: column;
+            gap: .8rem;
+        }
+        .step-eight-form .checkbox-con input {
+            width: 15px;
+            height: 15px;
+            accent-color: #E4EFE7;
+            border: none;
+            cursor: pointer;
+        }
+        .step-eight-form .label-con {
+            display: flex;
+            flex-direction: column;
+            gap: .6rem;
+            font-size: 14px;
+            font-weight: 600;
+            color: #404040;
+            text-align: left;
+        }
+        .step-eight-form p {
+            width: auto;
+            font-size: 14px;
+            font-weight: 600;
+            color: #404040;
+        }
+
+        /* step nine  */
+        .step-nine-form .options-con {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            margin-right: 80px;
+            padding-bottom: 117px;
+
+        }
+        .step-nine-form .checkbox-con {
+            display: flex;
+            flex-direction: column;
+            gap: .8rem;
+        }
+        .step-nine-form .checkbox-con input {
+            width: 15px;
+            height: 15px;
+            accent-color: #E4EFE7;
+            border: none;
+            cursor: pointer;
+        }
+        .step-nine-form .label-con {
+            display: flex;
+            flex-direction: column;
+            gap: .6rem;
+            font-size: 14px;
+            font-weight: 600;
+            color: #404040;
+            text-align: left;
+        }
+        .step-nine-form p {
+            width: auto;
+            font-size: 14px;
+            font-weight: 600;
+            color: #404040;
+        }
+
+        /* step ten  */
+        .step-ten-form .options-con {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            margin-right: 80px;
+            padding-bottom: 117px;
+
+        }
+        .step-ten-form .checkbox-con {
+            display: flex;
+            flex-direction: column;
+            gap: .8rem;
+        }
+        .step-ten-form .checkbox-con input {
+            width: 15px;
+            height: 15px;
+            accent-color: #E4EFE7;
+            border: none;
+            cursor: pointer;
+        }
+        .step-ten-form .label-con {
+            display: flex;
+            flex-direction: column;
+            gap: .6rem;
+            font-size: 14px;
+            font-weight: 600;
+            color: #404040;
+            text-align: left;
+        }
+        .step-ten-form p {
+            width: auto;
+            font-size: 14px;
+            font-weight: 600;
+            color: #404040;
+        }
+
+
+    </style>
+
+</head>
+
+<body>
+    <div class="packing-container">
+        <header>
+            <div class="logo">
+                <span>
+                    <img src="/images/Logo.png" alt="">
+                </span>
+                <h1>PackPal</h1>
+            </div>
+
+        </header>
+
+        <div class="packing-header">
+            <h1>TRIP</h1>
+            <div class="indicator-con">
+                <svg class="indicator" viewBox="0 0 550 20" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Connector line -->
+                    <line class="connector" x1="10" y1="10" x2="540" y2="10" />
+
+                    <!-- Dots / Steps (10 total) -->
+                    <circle class="step active" cx="10" cy="10" r="6" />
+                    <circle class="step " cx="70" cy="10" r="6" />
+                    <circle class="step " cx="130" cy="10" r="6" />
+                    <circle class="step " cx="190" cy="10" r="6" />
+                    <circle class="step " cx="250" cy="10" r="6" />
+                    <circle class="step" cx="310" cy="10" r="6" />
+                    <circle class="step" cx="370" cy="10" r="6" />
+                    <circle class="step" cx="430" cy="10" r="6" />
+                    <circle class="step" cx="490" cy="10" r="6" />
+                    <circle class="step" cx="540" cy="10" r="6" />
+                </svg>
+
+            </div>
+        </div>
+        <!-- step-one -->
+        <div class="step-one-form main active">
+
+            <p class="packing-text">
+                Where are you traveling to? </p>
+            <input class="tripDestination" type="text" placeholder="Enter Location">
+        </div>
+        <!-- step-two -->
+        <div class="step-two-form main inactive">
+
+            <p class="packing-text">
+                How long are you staying?
+            </p>
+            <!-- format must Month, Date - Month, Date -->
+            <input class="tripDuration" type="text" placeholder="Enter Date">
+        </div>
+
+        <!-- step-three -->
+        <div class="step-three-form main inactive">
+            <h3>Weather Forecast</h3>
+            <div class="image-con">
+                <div class="image-text">
+                    <p class="tripLocation">
+                        <!-- Location from step one -->
+                        <!-- Canada -->
+                    </p>
+                    <p class="tripDate">
+                        <!-- Date from Step two -->
+                        <!-- Jan 1 - Jan 7 -->
+                    </p>
+                </div>
+                <img src="/images/WeatherForecast.png" alt="">
+
+            </div>
+            <p class="packing-text">
+                Do you still want to continue?
+            </p>
+        </div>
+
+<!-- step-four -->
+<div class="step-four-form main inactive">
+    <p class="packing-text">What's the weather expected to be like?</p>
+    <div class="options-con">
+        <div class="checkbox-con">
+            <input value="Freezing" type="checkbox" name="weather" id="weather-freezing">
+            <input value="Cold" type="checkbox" name="weather" id="weather-cold">
+            <input value="Cool" type="checkbox" name="weather" id="weather-cool">
+            <input value="Warm" type="checkbox" name="weather" id="weather-warm">
+            <input value="Hot" type="checkbox" name="weather" id="weather-hot">
+            <input value="Rainy" type="checkbox" name="weather" id="weather-rainy">
+        </div>
+        <div class="label-con">
+            <p>Freezing</p>
+            <p>Cold</p>
+            <p>Cool</p>
+            <p>Warm</p>
+            <p>Hot</p>
+            <p>Rainy</p>
+        </div>
+    </div>
+</div>
+
+<!-- Step Five -->
+<div class="step-five-form main inactive">
+    <p class="packing-text">Reason for traveling?</p>
+    <div class="options-con">
+        <div class="checkbox-con">
+            <input value="Vacation" type="checkbox" name="travel-reason" id="reason-vacation">
+            <input value="Business/Study" type="checkbox" name="travel-reason" id="reason-business">
+            <input value="Destination Wedding" type="checkbox" name="travel-reason" id="reason-wedding">
+            <input value="Concert/Festival" type="checkbox" name="travel-reason" id="reason-concert">
+        </div>
+        <div class="label-con">
+            <p>Vacation</p>
+            <p>Business/Study</p>
+            <p>Destination Wedding</p>
+            <p>Concert/Festival</p>
+        </div>
+    </div>
+</div>
+
+<!-- Step six -->
+<div class="step-six-form main inactive">
+    <p class="packing-text">Pack items for:</p>
+    <div class="options-con">
+        <div class="checkbox-con">
+            <input value="Female" type="checkbox" name="packing-for" id="packing-female">
+            <input value="Male" type="checkbox" name="packing-for" id="packing-male">
+            <input value="Baby" type="checkbox" name="packing-for" id="packing-baby">
+        </div>
+        <div class="label-con">
+            <p>Female</p>
+            <p>Male</p>
+            <p>Baby</p>
+        </div>
+    </div>
+</div>
+
+<!-- Step Seven -->
+<div class="step-seven-form main inactive">
+    <p class="packing-text">Are you taking:</p>
+    <div class="options-con">
+        <div class="checkbox-con">
+            <input value="Laptop" type="checkbox" name="electronics" id="electronics-laptop">
+            <input value="Tablet" type="checkbox" name="electronics" id="electronics-tablet">
+            <input value="Camera" type="checkbox" name="electronics" id="electronics-camera">
+            <input value="E-reader" type="checkbox" name="electronics" id="electronics-ereader">
+            <input value="Smart watch" type="checkbox" name="electronics" id="electronics-smartwatch">
+        </div>
+        <div class="label-con">
+            <p>Laptop</p>
+            <p>Tablet</p>
+            <p>Camera</p>
+            <p>E-reader</p>
+            <p>Smart watch</p>
+        </div>
+    </div>
+</div>
+
+<!-- Step Eight -->
+<div class="step-eight-form main inactive">
+    <p class="packing-text">Are you going swimming?</p>
+    <div class="options-con">
+        <div class="checkbox-con">
+            <input value="Yes" type="checkbox" name="swimming" id="swimming-yes">
+            <input value="No" type="checkbox" name="swimming" id="swimming-no">
+        </div>
+        <div class="label-con">
+            <p>Yes</p>
+            <p>No</p>
+        </div>
+    </div>
+</div>
+
+<!-- Step nine -->
+<div class="step-nine-form main inactive">
+    <p class="packing-text">What about sports or outdoor activities?</p>
+    <div class="options-con">
+        <div class="checkbox-con">
+            <input value="Yes" type="checkbox" name="sports" id="sports-yes">
+            <input value="No" type="checkbox" name="sports" id="sports-no">
+        </div>
+        <div class="label-con">
+            <p>Yes</p>
+            <p>No</p>
+        </div>
+    </div>
+</div>
+
+<!-- Step ten -->
+<div class="step-ten-form main inactive">
+    <p class="packing-text">Do you wear…</p>
+    <div class="options-con">
+        <div class="checkbox-con">
+            <input value="Glasses" type="checkbox" name="vision" id="vision-glasses">
+            <input value="Contact Lenses" type="checkbox" name="vision" id="vision-contacts">
+        </div>
+        <div class="label-con">
+            <p>Glasses</p>
+            <p>Contact Lenses</p>
+        </div>
+    </div>
+</div>
+
+        <div class="control-btn">
+            <button class="previous">Previous</button>
+
+            <button class="next">Next</button>
+        </div>
+
+    </div>
+    
+    <script src="/script/packing.js"></script>
+    <script src="/script/autoGeneratedList.js" ></script>
+
+
+</body>
+
+</html>
