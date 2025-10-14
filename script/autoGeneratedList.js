@@ -1,255 +1,6 @@
-// packingListDisplay.js
-
-// autoPackingList.js
-class AutoPackingList {
-    constructor() {
-        this.itemTemplates = {
-            personalItems: {
-                // Basic hygiene
-                basicHygiene: ["Toothbrush", "Toothpaste", "Mouthwash", "Floss"],
-                // Bath & body
-                bathBody: ["Shampoo", "Conditioner", "Body Wash", "Soap", "Loofah"],
-                // Hair care
-                hairCare: ["Hairbrush", "Comb", "Hair Ties", "Hair Gel", "Hair Spray"],
-                // Skincare
-                skincare: ["Moisturizer", "Sunscreen", "Lip Balm", "Face Wash"],
-                // Shaving
-                shaving: ["Razor", "Shaving Cream", "Aftershave"],
-                // Personal care
-                personalCare: ["Deodorant", "Perfume/Cologne", "Nail Clipper", "Tweezers"],
-                // First aid
-                firstAid: ["Band-Aids", "Pain Relievers", "Antiseptic", "Prescription Medications"],
-                // Weather specific
-                hotWeather: ["Sunscreen SPF 50+", "Aloe Vera", "Sun Hat", "Sunglasses"],
-                coldWeather: ["Lip Balm", "Hand Cream", "Body Lotion", "Chapstick"],
-                rainyWeather: ["Umbrella", "Waterproof Jacket", "Quick-dry Towel"],
-                // Activity specific
-                swimming: ["Swimsuit", "Beach Towel", "Flip Flops", "Goggles"],
-                sports: ["Sports Towel", "Athletic Wear", "Sports Shoes", "Water Bottle"],
-                business: ["Business Cards", "Notebook", "Pens", "Portfolio"],
-                wedding: ["Formal Wear", "Jewelry", "Dress Shoes", "Accessories"],
-                festival: ["Ear Protection", "Small Backpack", "Comfortable Shoes", "Portable Charger"]
-            },
-            electronics: {
-                // Essential electronics
-                essential: ["Phone", "Phone Charger", "Headphones", "Earphones"],
-                // Power & charging
-                power: ["Power Bank", "Portable Charger", "Car Charger"],
-                // Computer & work
-                computer: ["Laptop", "Laptop Charger", "Mouse", "Laptop Stand"],
-                tablet: ["Tablet", "Tablet Charger", "Tablet Case", "Stylus"],
-                // Photography
-                photography: ["Camera", "Camera Charger", "Memory Cards", "Tripod"],
-                // Entertainment
-                entertainment: ["E-reader", "Portable Speaker", "Gaming Device"],
-                // Travel accessories
-                travel: ["Travel Adapter", "Power Strip", "Cable Organizer"],
-                // Smart devices
-                smart: ["Smartwatch", "Smartwatch Charger", "Fitness Tracker"]
-            }
-        };
-    }
-
-    generatePackingList(tripData) {
-        const packingList = {
-            personalItems: [],
-            electronics: []
-        };
-
-        // Generate personal items
-        packingList.personalItems = this.generatePersonalItems(tripData);
-        
-        // Generate electronics
-        packingList.electronics = this.generateElectronics(tripData);
-
-        console.log('Packing List:', packingList );
-        
-        
-        return packingList;
-    }
-
-    generatePersonalItems(tripData) {
-        let items = new Set();
-
-        // Add basic hygiene (always included)
-        this.addItemsFromTemplate(items, this.itemTemplates.personalItems.basicHygiene);
-        
-        // Add bath & body based on trip duration
-        const duration = this.getTripDuration(tripData.duration);
-        if (duration >= 3) {
-            this.addItemsFromTemplate(items, this.itemTemplates.personalItems.bathBody);
-            this.addItemsFromTemplate(items, this.itemTemplates.personalItems.hairCare);
-        }
-        
-        // Add skincare based on duration and weather
-        if (duration >= 2) {
-            this.addItemsFromTemplate(items, this.itemTemplates.personalItems.skincare);
-        }
-
-        // Add weather-specific items
-        if (tripData.weather && tripData.weather.length > 0) {
-            tripData.weather.forEach(weather => {
-                if (weather.includes("Hot") || weather.includes("Warm")) {
-                    this.addItemsFromTemplate(items, this.itemTemplates.personalItems.hotWeather);
-                }
-                if (weather.includes("Cold") || weather.includes("Freezing")) {
-                    this.addItemsFromTemplate(items, this.itemTemplates.personalItems.coldWeather);
-                }
-                if (weather.includes("Rainy")) {
-                    this.addItemsFromTemplate(items, this.itemTemplates.personalItems.rainyWeather);
-                }
-            });
-        }
-
-        // Add activity-specific items
-        if (tripData.swimming === "Yes") {
-            this.addItemsFromTemplate(items, this.itemTemplates.personalItems.swimming);
-        }
-        
-        if (tripData.sports === "Yes") {
-            this.addItemsFromTemplate(items, this.itemTemplates.personalItems.sports);
-        }
-
-        // Add travel reason specific items
-        if (tripData.travelReason && tripData.travelReason.length > 0) {
-            tripData.travelReason.forEach(reason => {
-                if (reason.includes("Business") || reason.includes("Study")) {
-                    this.addItemsFromTemplate(items, this.itemTemplates.personalItems.business);
-                }
-                if (reason.includes("Wedding")) {
-                    this.addItemsFromTemplate(items, this.itemTemplates.personalItems.wedding);
-                }
-                if (reason.includes("Concert") || reason.includes("Festival")) {
-                    this.addItemsFromTemplate(items, this.itemTemplates.personalItems.festival);
-                }
-            });
-        }
-
-        // Add vision items
-        if (tripData.vision && tripData.vision.length > 0) {
-            if (tripData.vision.includes("Glasses")) {
-                items.add("Glasses");
-                items.add("Glasses Case");
-                items.add("Lens Cleaner");
-            }
-            if (tripData.vision.includes("Contact Lenses")) {
-                items.add("Contact Lenses");
-                items.add("Contact Solution");
-                items.add("Lens Case");
-            }
-        }
-
-        // Add packing for specific items
-        if (tripData.packingFor && tripData.packingFor.length > 0) {
-            if (tripData.packingFor.includes("Baby")) {
-                items.add("Diapers");
-                items.add("Baby Wipes");
-                items.add("Baby Powder");
-                items.add("Baby Clothes");
-            }
-        }
-
-        return Array.from(items);
-    }
-
-    generateElectronics(tripData) {
-        let items = new Set();
-
-        // Always include essential electronics
-        this.addItemsFromTemplate(items, this.itemTemplates.electronics.essential);
-        this.addItemsFromTemplate(items, this.itemTemplates.electronics.power);
-
-        // Add electronics based on user selection
-        if (tripData.electronics && tripData.electronics.length > 0) {
-            tripData.electronics.forEach(electronics => {
-                if (electronics.includes("Laptop")) {
-                    this.addItemsFromTemplate(items, this.itemTemplates.electronics.computer);
-                }
-                if (electronics.includes("Tablet")) {
-                    this.addItemsFromTemplate(items, this.itemTemplates.electronics.tablet);
-                }
-                if (electronics.includes("Camera")) {
-                    this.addItemsFromTemplate(items, this.itemTemplates.electronics.photography);
-                }
-                if (electronics.includes("E-reader")) {
-                    this.addItemsFromTemplate(items, this.itemTemplates.electronics.entertainment);
-                }
-                if (electronics.includes("Smart watch")) {
-                    this.addItemsFromTemplate(items, this.itemTemplates.electronics.smart);
-                }
-            });
-        }
-
-        // Add travel-specific electronics for longer trips
-        const duration = this.getTripDuration(tripData.duration);
-        if (duration >= 5) {
-            this.addItemsFromTemplate(items, this.itemTemplates.electronics.travel);
-        }
-
-        // Add additional electronics based on travel reason
-        if (tripData.travelReason && tripData.travelReason.length > 0) {
-            tripData.travelReason.forEach(reason => {
-                if (reason.includes("Business") || reason.includes("Study")) {
-                    items.add("Laptop");
-                    items.add("Laptop Charger");
-                    items.add("Notebook");
-                }
-                if (reason.includes("Concert") || reason.includes("Festival")) {
-                    items.add("Portable Charger");
-                    items.add("Power Bank");
-                }
-            });
-        }
-
-        return Array.from(items);
-    }
-
-    addItemsFromTemplate(itemSet, templateItems) {
-        templateItems.forEach(item => itemSet.add(item));
-    }
-
-    getTripDuration(durationString) {
-        if (!durationString) return 3;
-        
-        try {
-            // Try to parse date format like "Jan 1 - Jan 7"
-            const parts = durationString.split('-');
-            if (parts.length === 2) {
-                // Simple calculation - count the number of days mentioned
-                return Math.max(3, parts.length * 3); // Estimate 3 days per part
-            }
-            
-            // Try to parse numeric duration
-            const numericMatch = durationString.match(/\d+/);
-            if (numericMatch) {
-                return Math.max(1, parseInt(numericMatch[0]));
-            }
-        } catch (error) {
-            console.error('Error parsing duration:', error);
-        }
-        
-        return 3; // Default fallback
-    }
-
-    // Method to get suggested items for a specific category
-    getSuggestedItems(category, tripData) {
-        switch(category) {
-            case 'Personal Items':
-                return this.generatePersonalItems(tripData);
-            case 'Electronics':
-                return this.generateElectronics(tripData);
-            default:
-                return [];
-        }
-    }
-}
-
-// Initialize and make globally available
-window.AutoPackingList = AutoPackingList;
-window.autoPackingList = new AutoPackingList();
-
-// packingListDisplay.js
+// autoGeneratedList.js - Packing list display and interaction logic
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('autoGeneratedList.js loaded');
     displayAutoGeneratedPackingList();
     setupPackingListInteractions();
 });
@@ -260,186 +11,360 @@ function displayAutoGeneratedPackingList() {
     if (latestTrip && latestTrip.packingList) {
         const packingList = latestTrip.packingList;
         
-        // Display personal items
-        const personalContainer = document.querySelector('.category:first-child .item-list');
-        if (personalContainer && packingList.personalItems) {
-            personalContainer.innerHTML = '';
-            packingList.personalItems.forEach(item => {
-                const itemElement = createPackingItemElement(item, 'personal');
-                personalContainer.appendChild(itemElement);
-            });
-        }
+        console.log('Displaying packing list with categories:', Object.keys(packingList));
         
-        // Display electronics
-        const electronicsContainer = document.querySelector('.category:nth-child(2) .item-list');
-        if (electronicsContainer && packingList.electronics) {
-            electronicsContainer.innerHTML = '';
-            packingList.electronics.forEach(item => {
-                const itemElement = createPackingItemElement(item, 'electronics');
-                electronicsContainer.appendChild(itemElement);
-            });
-        }
+        // Display all categories in your existing HTML structure
+        displayCategory('personalItems', 'Personal Items', packingList.personalItems);
+        displayCategory('electronics', 'Electronics', packingList.electronics);
+        displayCategory('utilities', 'Utilities', packingList.utilities);
+        displayCategory('health', 'Health', packingList.health);
+        displayCategory('clothes', 'Clothes', packingList.clothes);
+        displayCategory('accessories', 'Accessories', packingList.accessories);
+        displayCategory('footwear', 'Footwear', packingList.footwear);
         
-        console.log('Auto-generated packing list displayed');
+        console.log('Auto-generated packing list displayed - ALL ITEMS UNCHECKED');
+        
+        // Load user's saved selections
+        loadUserSelections();
     } else {
-        console.log('No auto-generated packing list found');
+        console.log('No auto-generated packing list found in session storage');
+        // Still display all categories even if no data
+        displayAllCategories();
     }
 }
 
-function createPackingItemElement(itemName, category) {
+function displayAllCategories() {
+    const categories = [
+        { id: 'personalItems', name: 'Personal Items' },
+        { id: 'electronics', name: 'Electronics' },
+        { id: 'utilities', name: 'Utilities' },
+        { id: 'health', name: 'Health' },
+        { id: 'clothes', name: 'Clothes' },
+        { id: 'accessories', name: 'Accessories' },
+        { id: 'footwear', name: 'Footwear' }
+    ];
+    
+    categories.forEach(category => {
+        displayCategory(category.id, category.name, []);
+    });
+}
+
+function displayCategory(categoryId, categoryName, items) {
+    // Find existing category container or create new one
+    let categoryContainer = findCategoryContainer(categoryId);
+    
+    if (!categoryContainer) {
+        categoryContainer = createCategoryElement(categoryId, categoryName);
+        addCategoryToDOM(categoryContainer);
+    }
+    
+    // Display items
+    const itemList = categoryContainer.querySelector('.item-list');
+    if (itemList && items) {
+        itemList.innerHTML = '';
+        items.forEach(item => {
+            const itemElement = createPackingItemElement(item, categoryId, false);
+            itemList.appendChild(itemElement);
+        });
+        console.log(`${categoryName} items displayed:`, items.length);
+    }
+}
+
+function findCategoryContainer(categoryId) {
+    // Try to find existing category by header text
+    const headers = document.querySelectorAll('.category-header h3');
+    for (let header of headers) {
+        if (header.textContent === formatCategoryName(categoryId)) {
+            return header.closest('.category');
+        }
+    }
+    return null;
+}
+
+function createCategoryElement(categoryId, categoryName) {
+    const categoryDiv = document.createElement('div');
+    categoryDiv.className = 'category';
+    categoryDiv.setAttribute('data-category', categoryId);
+    
+    categoryDiv.innerHTML = `
+        <div class="category-header">
+            <h3>${categoryName}</h3>
+        </div>
+        <div class="item-list">
+            <!-- Items will be populated here -->
+        </div>
+        <div class="add-item-con">
+            <i class="fas fa-plus-circle"></i>
+            <p>Add ${categoryName}</p>
+        </div>
+    `;
+    
+    return categoryDiv;
+}
+
+function addCategoryToDOM(categoryContainer) {
+    const mainList = document.querySelector('.main-list');
+    if (mainList) {
+        mainList.appendChild(categoryContainer);
+    } else {
+        console.error('Could not find .main-list container');
+    }
+}
+
+function formatCategoryName(categoryId) {
+    const nameMap = {
+        'utilities': 'Utilities',
+        'health': 'Health',
+        'clothes': 'Clothes',
+        'accessories': 'Accessories',
+        'footwear': 'Footwear',
+        'personalItems': 'Personal Items',
+        'electronics': 'Electronics'
+    };
+    return nameMap[categoryId] || categoryId;
+}
+
+function createPackingItemElement(itemName, category, isChecked = false) {
     const itemDiv = document.createElement('div');
     itemDiv.className = 'packing-items';
     itemDiv.setAttribute('data-item-name', itemName);
     itemDiv.setAttribute('data-category', category);
+    
     itemDiv.innerHTML = `
         <div class="item">
-            <input type="checkbox" name="${itemName}" id="${category}-${itemName.replace(/\s+/g, '-')}" checked>
+            <input type="checkbox" name="${itemName}" id="${category}-${itemName.replace(/\s+/g, '-')}" ${isChecked ? 'checked' : ''}>
             <label for="${category}-${itemName.replace(/\s+/g, '-')}">${itemName}</label>
         </div>
-        <div class="item-btn">
-            <a href="">Edit</a>
+        <div class="item-btn" style="visibility: ${isChecked ? 'visible' : 'hidden'}; opacity: ${isChecked ? '1' : '0'}; transition: opacity 0.3s ease, visibility 0.3s ease;">
+            <a href="#" class="edit-btn">Edit</a>
             <span></span>
-            <a href="">Delete</a>
+            <a href="#" class="delete-btn">Delete</a>
         </div>
     `;
     return itemDiv;
 }
 
 function setupPackingListInteractions() {
+    console.log('Setting up packing list interactions...');
+    
     // Add new item functionality
-    document.querySelectorAll('.add-item-con').forEach(button => {
-        button.addEventListener('click', function() {
-            const category = this.closest('.category').querySelector('h3').textContent;
-            const newItem = prompt(`Add new ${category} item:`);
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('.add-item-con')) {
+            const addItemCon = e.target.closest('.add-item-con');
+            const categoryElement = addItemCon.closest('.category');
+            const category = categoryElement.getAttribute('data-category');
+            const categoryName = categoryElement.querySelector('.category-header h3').textContent;
+            
+            const newItem = prompt(`Add new ${categoryName} item:`);
             if (newItem && newItem.trim()) {
-                const container = this.previousElementSibling;
-                const categoryType = category === 'Personal Items' ? 'personal' : 'electronics';
-                const itemElement = createPackingItemElement(newItem.trim(), categoryType);
+                const container = categoryElement.querySelector('.item-list');
+                if (!container) {
+                    console.warn('Could not find item list container');
+                    return;
+                }
+                
+                // New items added by user start UNCHECKED (buttons hidden)
+                const itemElement = createPackingItemElement(newItem.trim(), category, false);
                 container.appendChild(itemElement);
                 
-                // Add to session storage
-                addItemToSessionStorage(newItem.trim(), categoryType);
+                console.log('New item added (unchecked, buttons hidden):', newItem.trim());
             }
-        });
+        }
     });
 
-    // Edit item functionality
-    document.addEventListener('click', function(e) {
-        if (e.target.textContent === 'Edit') {
-            e.preventDefault();
-            const itemElement = e.target.closest('.packing-items');
-            const oldName = itemElement.getAttribute('data-item-name');
-            const category = itemElement.getAttribute('data-category');
-            const label = itemElement.querySelector('label');
-            const newName = prompt('Edit item name:', label.textContent);
-            if (newName && newName.trim()) {
-                // Update in session storage
-                updateItemInSessionStorage(oldName, newName.trim(), category);
-                
-                // Update DOM
-                label.textContent = newName.trim();
-                const input = itemElement.querySelector('input');
+ // Edit item functionality
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('edit-btn') || e.target.textContent === 'Edit') {
+        e.preventDefault();
+        const itemElement = e.target.closest('.packing-items');
+        
+        if (!itemElement) {
+            console.warn('Edit button not associated with packing item');
+            return;
+        }
+        
+        const oldName = itemElement.getAttribute('data-item-name');
+        const category = itemElement.getAttribute('data-category');
+        const label = itemElement.querySelector('label');
+        
+        if (!label) {
+            console.warn('Could not find label element');
+            return;
+        }
+        
+        const newName = prompt('Edit item name:', label.textContent);
+        if (newName && newName.trim()) {
+            // ✅ ALWAYS update in user's packing list when edited
+            updateItemInUserPackingList(oldName, newName.trim(), category);
+            
+            // Update DOM
+            label.textContent = newName.trim();
+            const input = itemElement.querySelector('input');
+            if (input) {
                 input.name = newName.trim();
                 input.id = input.id.split('-')[0] + '-' + newName.trim().replace(/\s+/g, '-');
                 label.setAttribute('for', input.id);
-                itemElement.setAttribute('data-item-name', newName.trim());
             }
+            itemElement.setAttribute('data-item-name', newName.trim());
+            
+            console.log('✅ Item UPDATED in user packing list:', oldName, '→', newName.trim(), 'in', category);
         }
-    });
+    }
+});
 
-    // Delete item functionality
-    document.addEventListener('click', function(e) {
-        if (e.target.textContent === 'Delete') {
-            e.preventDefault();
-            const itemElement = e.target.closest('.packing-items');
-            const itemName = itemElement.getAttribute('data-item-name');
-            const category = itemElement.getAttribute('data-category');
-                // Remove from session storage
-                removeItemFromSessionStorage(itemName, category);
+// Delete item functionality
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('delete-btn') || e.target.textContent === 'Delete') {
+        e.preventDefault();
+        const itemElement = e.target.closest('.packing-items');
+        
+        if (!itemElement) {
+            console.warn('Delete button not associated with packing item');
+            return;
+        }
+        
+        const itemName = itemElement.getAttribute('data-item-name');
+        const category = itemElement.getAttribute('data-category');
+        
+        // ✅ ALWAYS remove from user's packing list when deleted
+        // First check if item exists in user packing list
+        if (isItemInUserPackingList(itemName, category)) {
+            removeItemFromUserPackingList(itemName, category);
+            console.log('✅ Item DELETED from user packing list:', itemName, 'from', category);
+        } else {
+            console.log('Item not found in user packing list, no need to remove:', itemName);
+        }
+        
+        // Add fade out animation
+        itemElement.style.opacity = '0.5';
+        itemElement.style.textDecoration = 'line-through';
+        
+        // Remove after delay
+        setTimeout(() => {
+            if (itemElement.parentNode) {
                 itemElement.remove();
+            }
+        }, 500);
+    }
+});
 
-                // Add fade out animation
-                itemElement.style.opacity = '0.5';
-                itemElement.style.textDecoration = 'line-through';
-                
-                // Optional: Remove after delay
-                setTimeout(() => {
-                    itemElement.remove();
-                }, 500);
-
-        }
-    });
-
-    // Checkbox change handler - remove item when unchecked
+    // Checkbox change handler - SAVE when checked, REMOVE when unchecked
     document.addEventListener('change', function(e) {
         if (e.target.type === 'checkbox') {
             const checkbox = e.target;
             const itemElement = checkbox.closest('.packing-items');
-            const itemName = itemElement.getAttribute('data-item-name');
-            const category = itemElement.getAttribute('data-category');
             
-            if (!checkbox.checked) {
-                // Remove from session storage and fade out
-                removeItemFromSessionStorage(itemName, category);
-                
-                // Add fade out animation
-                itemElement.style.opacity = '0.5';
-                itemElement.style.textDecoration = 'line-through';
-                
-                // Optional: Remove after delay
-                setTimeout(() => {
-                    itemElement.remove();
-                }, 500);
-            } else {
-                // Add back to session storage if rechecked
-                addItemToSessionStorage(itemName, category);
-                itemElement.style.opacity = '1';
-                itemElement.style.textDecoration = 'none';
+            if (!itemElement) {
+                console.warn('Checkbox not associated with packing item');
+                return;
             }
             
-            // Save checkbox state
-            saveCheckboxState();
+            const itemName = itemElement.getAttribute('data-item-name');
+            const category = itemElement.getAttribute('data-category');
+            const itemBtn = itemElement.querySelector('.item-btn');
+            
+            if (checkbox.checked) {
+                // ✅ USER CHECKED - Add to user's packing list and SHOW buttons
+                addItemToUserPackingList(itemName, category);
+                
+                // Show buttons with smooth transition
+                if (itemBtn) {
+                    itemBtn.style.visibility = 'visible';
+                    itemBtn.style.opacity = '1';
+                }
+                
+                console.log('✅ Item ADDED to user packing list, buttons shown:', itemName, 'in', category);
+            } else {
+                // ❌ USER UNCHECKED - Remove from user's packing list and HIDE buttons
+                removeItemFromUserPackingList(itemName, category);
+                
+                // Hide buttons with smooth transition
+                if (itemBtn) {
+                    itemBtn.style.visibility = 'hidden';
+                    itemBtn.style.opacity = '0';
+                }
+                
+                console.log('❌ Item REMOVED from user packing list, buttons hidden:', itemName, 'from', category);
+            }
+            
+            // Save user's selections
+            saveUserSelections();
         }
     });
 
-    // Load saved checkbox states
-    loadCheckboxStates();
+    console.log('Packing list interactions setup complete');
 }
 
-// Session Storage Management
-function addItemToSessionStorage(itemName, category) {
-    const latestTrip = JSON.parse(sessionStorage.getItem('latestTrip'));
-    if (latestTrip && latestTrip.packingList) {
-        const categoryKey = category === 'personal' ? 'personalItems' : 'electronics';
-        if (!latestTrip.packingList[categoryKey].includes(itemName)) {
-            latestTrip.packingList[categoryKey].push(itemName);
-            sessionStorage.setItem('latestTrip', JSON.stringify(latestTrip));
-        }
+// USER PACKING LIST MANAGEMENT
+function addItemToUserPackingList(itemName, category) {
+    let userPackingList = getUserPackingList();
+    
+    // Initialize category if it doesn't exist
+    if (!userPackingList[category]) {
+        userPackingList[category] = [];
+    }
+    
+    // Add item if not already in list
+    if (!userPackingList[category].includes(itemName)) {
+        userPackingList[category].push(itemName);
+        saveUserPackingList(userPackingList);
+        console.log('✅ Item saved to user packing list:', itemName, 'in', category);
     }
 }
 
-function removeItemFromSessionStorage(itemName, category) {
-    const latestTrip = JSON.parse(sessionStorage.getItem('latestTrip'));
-    if (latestTrip && latestTrip.packingList) {
-        const categoryKey = category === 'personal' ? 'personalItems' : 'electronics';
-        latestTrip.packingList[categoryKey] = latestTrip.packingList[categoryKey].filter(item => item !== itemName);
-        sessionStorage.setItem('latestTrip', JSON.stringify(latestTrip));
+function removeItemFromUserPackingList(itemName, category) {
+    let userPackingList = getUserPackingList();
+    
+    // Remove item from user's list
+    if (userPackingList[category]) {
+        userPackingList[category] = userPackingList[category].filter(item => item !== itemName);
+        saveUserPackingList(userPackingList);
+        console.log('✅ Item removed from user packing list:', itemName, 'from', category);
     }
 }
 
-function updateItemInSessionStorage(oldName, newName, category) {
-    const latestTrip = JSON.parse(sessionStorage.getItem('latestTrip'));
-    if (latestTrip && latestTrip.packingList) {
-        const categoryKey = category === 'personal' ? 'personalItems' : 'electronics';
-        const index = latestTrip.packingList[categoryKey].indexOf(oldName);
+function isItemInUserPackingList(itemName, category) {
+    const userPackingList = getUserPackingList();
+    return userPackingList[category] && userPackingList[category].includes(itemName);
+}
+
+function updateItemInUserPackingList(oldName, newName, category) {
+    let userPackingList = getUserPackingList();
+    
+    if (userPackingList[category]) {
+        const index = userPackingList[category].indexOf(oldName);
         if (index !== -1) {
-            latestTrip.packingList[categoryKey][index] = newName;
-            sessionStorage.setItem('latestTrip', JSON.stringify(latestTrip));
+            userPackingList[category][index] = newName;
+            saveUserPackingList(userPackingList);
+            console.log('✅ Item updated in user packing list:', oldName, '→', newName, 'in', category);
+        } else {
+            console.log('❌ Item not found in user packing list:', oldName);
         }
+    } else {
+        console.log('❌ Category not found in user packing list:', category);
     }
 }
 
-function saveCheckboxState() {
+function getUserPackingList() {
+    const userList = localStorage.getItem('userPackingList');
+    return userList ? JSON.parse(userList) : {
+        utilities: [],
+        health: [],
+        clothes: [],
+        accessories: [],
+        footwear: [],
+        personalItems: [],
+        electronics: []
+    };
+}
+
+function saveUserPackingList(packingList) {
+    localStorage.setItem('userPackingList', JSON.stringify(packingList));
+    console.log('User packing list saved:', packingList);
+}
+
+// USER SELECTIONS MANAGEMENT (Checkbox states)
+function saveUserSelections() {
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
     const checkboxStates = {};
     
@@ -447,19 +372,68 @@ function saveCheckboxState() {
         checkboxStates[checkbox.name] = checkbox.checked;
     });
     
-    localStorage.setItem('packingListCheckboxStates', JSON.stringify(checkboxStates));
+    localStorage.setItem('userPackingListSelections', JSON.stringify(checkboxStates));
+    console.log('User selections saved');
 }
 
-function loadCheckboxStates() {
-    const savedStates = localStorage.getItem('packingListCheckboxStates');
-    if (savedStates) {
-        const checkboxStates = JSON.parse(savedStates);
+function loadUserSelections() {
+    const savedSelections = localStorage.getItem('userPackingListSelections');
+    if (savedSelections) {
+        const checkboxStates = JSON.parse(savedSelections);
         const checkboxes = document.querySelectorAll('input[type="checkbox"]');
         
         checkboxes.forEach(checkbox => {
             if (checkboxStates.hasOwnProperty(checkbox.name)) {
                 checkbox.checked = checkboxStates[checkbox.name];
+                
+                // Update button visibility based on checked state
+                const itemElement = checkbox.closest('.packing-items');
+                const itemBtn = itemElement ? itemElement.querySelector('.item-btn') : null;
+                
+                if (itemBtn) {
+                    if (checkbox.checked) {
+                        itemBtn.style.visibility = 'visible';
+                        itemBtn.style.opacity = '1';
+                    } else {
+                        itemBtn.style.visibility = 'hidden';
+                        itemBtn.style.opacity = '0';
+                    }
+                }
             }
         });
+        console.log('User selections loaded from localStorage');
+    } else {
+        // First load - ensure all items are unchecked and buttons hidden
+        forceAllItemsUnchecked();
     }
+}
+
+function forceAllItemsUnchecked() {
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach(checkbox => {
+        checkbox.checked = false;
+        const itemElement = checkbox.closest('.packing-items');
+        const itemBtn = itemElement ? itemElement.querySelector('.item-btn') : null;
+        
+        if (itemBtn) {
+            itemBtn.style.visibility = 'hidden';
+            itemBtn.style.opacity = '0';
+        }
+    });
+    console.log('All items set to unchecked, buttons hidden');
+}
+
+// Get user's final packing list
+function getUserFinalPackingList() {
+    return getUserPackingList();
+}
+
+// Export functions for testing (optional)
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        displayAutoGeneratedPackingList,
+        createPackingItemElement,
+        setupPackingListInteractions,
+        getUserFinalPackingList
+    };
 }
