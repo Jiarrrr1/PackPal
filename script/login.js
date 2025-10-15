@@ -39,6 +39,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const password = passwordInput.value;
         const rememberMe = rememberCheckbox ? rememberCheckbox.checked : false;
 
+        const latestTrip = JSON.parse(sessionStorage.getItem("latestTrip"));
+        console.log(latestTrip);
+        
+
         console.log('All Users:', userManager.getAllUsers());
         console.log('Attempting to login:', { email, password, rememberMe });
 
@@ -52,9 +56,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 localStorage.setItem('rememberMe', 'true');
             }
             
+            // Check if latestTrip exists and has data
+                if (latestTrip && Object.keys(latestTrip).length > 0) {
+                    window.location.href = '/views/trips.html';
+                    console.log('Current trip found, navigating to trips page');
+                } else {
+                    window.location.href = '/views/dashboard.html';
+                    console.log('No current trip found, navigating to dashboard');
+                }
             
-            // Redirect to dashboard
-            window.location.href = '/views/dashboard.html';
             
         } catch (error) {
             console.error('Login error:', error.message);
