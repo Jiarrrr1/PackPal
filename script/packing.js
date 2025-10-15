@@ -635,10 +635,12 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Route to trips.html
-  function routeToTripsPage(tripData) {
+  function routeToTripsPage(tripData, currentTrip) {
     // Save data to sessionStorage to pass to the next page
     sessionStorage.setItem("allTripsData", JSON.stringify(tripData));
     sessionStorage.setItem("latestTrip", JSON.stringify(currentTrip));
+    console.log(currentTrip);
+    
 
     // Redirect to trips.html
     window.location.href = "/views/trips.html";
@@ -659,6 +661,7 @@ document.addEventListener("DOMContentLoaded", function () {
     //     return;
     // }
 
+
     saveCurrentStepData();
 
     // In your Next button click handler, when currentStep === totalSteps:
@@ -676,6 +679,8 @@ document.addEventListener("DOMContentLoaded", function () {
       sessionStorage.setItem("latestTrip", JSON.stringify(currentTrip));
 
       console.log("Generated Packing List:", packingList);
+    // routeToTripsPage(tripData, currentTrip)
+
       window.location.href = "/views/trips.html";
     } else {
       currentStep++;
