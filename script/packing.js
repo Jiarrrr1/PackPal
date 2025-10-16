@@ -596,7 +596,7 @@ document.addEventListener("DOMContentLoaded", function () {
       case 4:
         return getCheckedValues("weather").length > 0;
       case 5:
-        return getCheckedValues("travel-reason").length > 0;
+        return getCheckedValues("travel-reason") !=="";
       case 6:
         return getCheckedValues("packing-for").length > 0;
       case 7:
@@ -612,27 +612,28 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Setup checkbox behavior for single selection groups
-  function setupCheckboxGroups() {
-    // Groups that should have single selection (radio-like behavior)
-    const singleSelectGroups = ["swimming", "sports"];
+// Setup checkbox behavior for single selection groups
+function setupCheckboxGroups() {
+  // Groups that should have single selection (radio-like behavior)
+  const singleSelectGroups = ["swimming", "sports"];
 
-    singleSelectGroups.forEach((groupName) => {
-      const checkboxes = document.querySelectorAll(`input[name="${name}"]`);
-      checkboxes.forEach((checkbox) => {
-        checkbox.addEventListener("change", function () {
-          if (this.checked) {
-            // Uncheck all others in the same group
-            checkboxes.forEach((otherCheckbox) => {
-              if (otherCheckbox !== this) {
-                otherCheckbox.checked = false;
-              }
-            });
-          }
-        });
+  singleSelectGroups.forEach((groupName) => {
+    const checkboxes = document.querySelectorAll(`input[name="${groupName}"]`);
+    checkboxes.forEach((checkbox) => {
+      checkbox.addEventListener("change", function () {
+        if (this.checked) {
+          // Uncheck all others in the same group
+          checkboxes.forEach((otherCheckbox) => {
+            if (otherCheckbox !== this) {
+              otherCheckbox.checked = false;
+            }
+          });
+        }
       });
     });
-  }
+  });
+}
+
 
   // Route to trips.html
   function routeToTripsPage(tripData, currentTrip) {
@@ -656,10 +657,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Next button click handler
   nextBtn.addEventListener("click", function () {
-    // if (!validateCurrentStep()) {
-    //     alert('Please complete this step before continuing.');
-    //     return;
-    // }
+    if (!validateCurrentStep()) {
+      console.log("failed");
+      
+      
+      const stepIndicator = document.querySelectorAll('#step-indicator')
+      if (stepIndicator) {
+      stepIndicator.classList.add('active')
+      stepIndicator.classList.remove('inactive')
+      }
+
+
+    }
 
 
     saveCurrentStepData();

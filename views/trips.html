@@ -140,7 +140,6 @@
             border-radius: 5px;
             width: 85%;
             padding-bottom: 10px;
-            height: 65vh;
         }
 
         .destination {
@@ -204,7 +203,7 @@
         .lower-btn {
             display: flex;
             width: 300px;
-            margin-top: 8vh;
+            /* margin-top: 8vh; */
         }
 
         .lower-btn a,
@@ -266,12 +265,74 @@
             background-color: #9EBC8A;
             color: rgb(23, 23, 23);
         }
+
+        .backdrop-content input {
+            padding: .3rem .5rem; 
+            width: 15rem;
+            height: 2rem;
+            border-radius: 8px;
+            margin: 10px;
+        }
+
+        .backdrop-content input:focus {
+            outline: none;
+        }
+
+        .backdrop-content .submit {
+            margin-top: 1rem ;
+            width: 90%;
+            margin: 0 auto;
+        }
+
+        .reminder-btn-con {
+            padding-top: 1rem;
+        }
+
+        
+        .trip-reminders {
+            background-color: #9EBC8A;
+            padding: 10px;
+            width: 300px;
+            margin: 0 auto;
+            border-radius: 5px;
+        }
+
+        .reminder-items img {
+            width: 18px;
+            height: 18px;
+        }
+
+        .reminder-items button {
+            width: 30px;
+            height: 20px;
+        }
+
+        .reminder-inputs, .reminder-item, .reminder-left, .reminder-right {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+        }   
+
+        .reminder-inputs {
+            border-bottom:solid 1px #404040;
+            padding-bottom: 3px;
+        }
+
+        .reminder-right {
+            gap: 5px;
+            align-items: center;
+        }
+
+
+        
     </style>
 
 </head>
 
 <body>
-    <div class="dashboard-container">
+    <div class="main-container">
+        <div class="dashboard-container">
         <header>
             <div class="logo">
                 <span>
@@ -293,7 +354,17 @@
                 <div class="date"></div>
                 <div class="trip-image-con">
                     <img src="/images/SVGs/TripWeather.svg" alt="">
-                    <img src="/images/SVGs/TripReminder.svg" alt="">
+                   <!-- Trip Reminders Section -->
+<div class="trip-reminders">
+    <div class="reminder-inputs">
+        <p>Set reminders</p>
+        <i class="fas fa-plus add-reminder"></i>
+    </div>
+    <span class="reminder-divider"></span>
+    <div class="reminder-items">
+        <!-- Reminders will be dynamically added here -->
+    </div>
+</div>
                 </div>
                 <div class="action-btn">
                     <a href="/views/packinglist.html">View packing list</a>
@@ -330,8 +401,20 @@
             </ul>
         </nav>
     </div>
+    </div>
 
-    <div class="backdrop inactive">
+    <div class="backdrop inactive" id="reminderOverlay">
+    <div class="backdrop-content deletion-overlay">
+        <h2>Set a Reminder</h2>
+        <input type="text" placeholder="Title" class="reminder-input">
+        <input type="text" placeholder="Time" class="reminder-input">
+        <div class="buttons reminder-btn-con">
+            <button class="submit">Add Reminder</button>
+        </div>
+    </div>
+</div>
+
+    <div class="backdrop inactive" id="deleteOverlay">
         <div class="backdrop-content deletion-overlay">
             <h2>Are you sure you want to delete this?</h2>
             <div class="buttons">

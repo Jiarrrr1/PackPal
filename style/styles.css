@@ -14,6 +14,7 @@ body {
             align-items: center;
             min-height: 100vh;
             padding: 20px; */
+  
 }
 
 h1, 
@@ -39,6 +40,10 @@ a {
 }
 
 
+header {
+  position: relative;
+  top: 0;
+}
 
 
 
@@ -46,6 +51,8 @@ a {
   font-size: 30px;
   color: #454545;
   padding-right: 2rem;
+  position: sticky;
+  top: 0;
 }
 
 .dashboard-header h1 {

@@ -119,17 +119,26 @@ Purpose: ${trip.travelReason.join(', ')}`;
 }
 
 function deleteCurrentTrip(trip) {
-    // Show the backdrop
-    const backdrop = document.querySelector('.backdrop');
-    const deletionOverlay = document.querySelector('.deletion-overlay');
+    console.log('Deleting trip:', trip);
     
-  
+    // Show the delete backdrop
+    const backdrop = document.querySelector('#deleteOverlay');
+    if (!backdrop) {
+        console.error('Delete overlay not found');
+        return;
+    }
+    
+    const deletionOverlay = backdrop.querySelector('.deletion-overlay');
+    if (!deletionOverlay) {
+        console.error('Deletion overlay content not found');
+        return;
+    }
     
     // Show the backdrop
     backdrop.classList.remove('inactive');
     backdrop.classList.add('active');
     
-    // Remove any existing event listeners first
+    // Remove any existing event listeners first by cloning elements
     const confirmBtn = deletionOverlay.querySelector('.confirm-btn');
     const cancelBtn = deletionOverlay.querySelector('.cancel-btn');
     
@@ -142,35 +151,60 @@ function deleteCurrentTrip(trip) {
     
     // Add event listener for confirm button
     newConfirmBtn.addEventListener('click', function confirmDelete() {
-        // Remove from all trips data
-        const allTripsData = JSON.parse(sessionStorage.getItem('allTripsData')) || [];
-        const updatedTrips = allTripsData.filter(t => 
-            t.destination !== trip.destination || t.duration !== trip.duration
-        );
+        console.log('Confirming deletion of trip:', trip);
         
-        // Save updated data
-        sessionStorage.setItem('allTripsData', JSON.stringify(updatedTrips));
-        sessionStorage.removeItem('latestTrip');
-        
-        // Hide backdrop
-        backdrop.classList.remove('active');
-        backdrop.classList.add('inactive');
-        
-        // Remove event listeners
-        newConfirmBtn.removeEventListener('click', confirmDelete);
-        
-        // Redirect to trips list
-        window.location.href = '/views/dashboard.html';
+        try {
+            // Get all trips data
+            const allTripsData = JSON.parse(sessionStorage.getItem('allTripsData')) || [];
+            console.log('All trips before deletion:', allTripsData);
+            
+            // Better trip identification - use multiple properties to find the exact trip
+            const updatedTrips = allTripsData.filter(existingTrip => {
+                // Check multiple properties to ensure we're deleting the correct trip
+                const isSameTrip = 
+                    existingTrip.destination === trip.destination &&
+                    existingTrip.duration === trip.duration &&
+                    JSON.stringify(existingTrip.weather) === JSON.stringify(trip.weather) &&
+                    JSON.stringify(existingTrip.travelReason) === JSON.stringify(trip.travelReason);
+                
+                console.log('Comparing trips:', { existingTrip, trip, isSameTrip });
+                return !isSameTrip;
+            });
+            
+            console.log('Trips after deletion:', updatedTrips);
+            
+            // Save updated data
+            sessionStorage.setItem('allTripsData', JSON.stringify(updatedTrips));
+            
+            // Also remove latestTrip if it's the one being deleted
+            const latestTrip = JSON.parse(sessionStorage.getItem('latestTrip') || 'null');
+            if (latestTrip && 
+                latestTrip.destination === trip.destination && 
+                latestTrip.duration === trip.duration) {
+                sessionStorage.removeItem('latestTrip');
+                console.log('Removed latestTrip from sessionStorage');
+            }
+            
+            // Hide backdrop
+            backdrop.classList.remove('active');
+            backdrop.classList.add('inactive');
+            
+            
+            // Redirect to dashboard
+            window.location.href = '/views/dashboard.html';
+            
+        } catch (error) {
+            console.error('Error deleting trip:', error);
+            alert('Error deleting trip. Please try again.');
+        }
     });
     
     // Add event listener for cancel button
     newCancelBtn.addEventListener('click', function cancelDelete() {
+        console.log('Deletion cancelled');
         // Hide backdrop
         backdrop.classList.remove('active');
         backdrop.classList.add('inactive');
-        
-        // Remove event listeners
-        newConfirmBtn.removeEventListener('click', cancelDelete);
     });
     
     // Also close backdrop when clicking outside the content
@@ -178,14 +212,169 @@ function deleteCurrentTrip(trip) {
         if (e.target === backdrop) {
             backdrop.classList.remove('active');
             backdrop.classList.add('inactive');
-            
-            // Remove event listeners
-            newConfirmBtn.removeEventListener('click', confirmDelete);
-            newCancelBtn.removeEventListener('click', cancelDelete);
             backdrop.removeEventListener('click', backdropClick);
         }
     });
 }
+
+
+
+// Function to show reminder overlay
+function showReminderOverlay() {
+    const reminderBackdrop = document.querySelector('#reminderOverlay');
+    const reminderOverlay = reminderBackdrop.querySelector('.backdrop-content');
+    
+    // Show the backdrop
+    reminderBackdrop.classList.remove('inactive');
+    reminderBackdrop.classList.add('active');
+    
+    // Remove any existing event listeners first
+    const submitBtn = reminderOverlay.querySelector('.submit');
+    
+    // Clone and replace button to remove existing event listeners
+    const newSubmitBtn = submitBtn.cloneNode(true);
+    submitBtn.parentNode.replaceChild(newSubmitBtn, submitBtn);
+    
+    // Add event listener for submit button
+    newSubmitBtn.addEventListener('click', function handleReminderSubmit() {
+        const titleInput = reminderOverlay.querySelector('input[placeholder="Title"]');
+        const timeInput = reminderOverlay.querySelector('input[placeholder="Time"]');
+        
+        const title = titleInput.value.trim();
+        const time = timeInput.value.trim();
+        
+        if (title && time) {
+            // Save reminder data
+            const reminder = {
+                id: Date.now().toString(), // Unique ID for each reminder
+                title: title,
+                time: time,
+                createdAt: new Date().toISOString()
+            };
+            
+            // Save to localStorage
+            const existingReminders = JSON.parse(localStorage.getItem('tripReminders') || '[]');
+            existingReminders.push(reminder);
+            localStorage.setItem('tripReminders', JSON.stringify(existingReminders));
+            
+            console.log('Reminder saved:', reminder);
+            
+            // Hide backdrop
+            reminderBackdrop.classList.remove('active');
+            reminderBackdrop.classList.add('inactive');
+            
+            // Clear inputs
+            titleInput.value = '';
+            timeInput.value = '';
+            
+            // Display the new reminder
+            displayReminders();
+            
+            // Remove event listener
+            newSubmitBtn.removeEventListener('click', handleReminderSubmit);
+        } else {
+            alert('Please fill out both title and time fields.');
+        }
+    });
+    
+    // Also close backdrop when clicking outside the content
+    reminderBackdrop.addEventListener('click', function reminderBackdropClick(e) {
+        if (e.target === reminderBackdrop) {
+            reminderBackdrop.classList.remove('active');
+            reminderBackdrop.classList.add('inactive');
+            
+            // Clear inputs
+            const titleInput = reminderOverlay.querySelector('input[placeholder="Title"]');
+            const timeInput = reminderOverlay.querySelector('input[placeholder="Time"]');
+            titleInput.value = '';
+            timeInput.value = '';
+            
+            // Remove event listeners
+            newSubmitBtn.removeEventListener('click', handleReminderSubmit);
+            reminderBackdrop.removeEventListener('click', reminderBackdropClick);
+        }
+    });
+}
+
+// Function to display all reminders
+function displayReminders() {
+    const reminderItems = document.querySelector('.reminder-items');
+    const reminderContainer = document.querySelector('.trip-reminders');
+    
+    // Get reminders from localStorage
+    const reminders = JSON.parse(localStorage.getItem('tripReminders') || '[]');
+    
+    // Clear existing reminder items (except the first one if it's a template)
+    reminderItems.innerHTML = '';
+    
+    if (reminders.length === 0) {
+        // Show empty state
+        reminderItems.innerHTML = `
+            <div class="reminder-empty">
+                <p>No reminders set</p>
+            </div>
+        `;
+        return;
+    }
+    
+    // Display each reminder
+    reminders.forEach(reminder => {
+        const reminderElement = createReminderElement(reminder);
+        reminderItems.appendChild(reminderElement);
+    });
+}
+
+// Function to create reminder HTML element
+function createReminderElement(reminder) {
+    const reminderDiv = document.createElement('div');
+    reminderDiv.className = 'reminder-item';
+    reminderDiv.setAttribute('data-reminder-id', reminder.id);
+    
+    reminderDiv.innerHTML = `
+        <div class="reminder-left">
+            <img src="/images/SVGs/ReminderIcon.svg" alt="Reminder">
+            <p class="reminder-title">${reminder.title}</p>
+        </div>
+        <div class="reminder-right">
+            <img src="/images/SVGs/ReminderTimeIcon.svg" alt="Time">
+            <p class="reminder-time">${reminder.time}</p>
+            <li class="delete-reminder" data-reminder-id="${reminder.id}">
+                <i class="fas fa-trash"></i>
+            </li>
+        </div>
+    `;
+    
+    return reminderDiv;
+}
+
+// Function to delete a reminder
+function deleteReminder(reminderId) {
+    const reminders = JSON.parse(localStorage.getItem('tripReminders') || '[]');
+    const updatedReminders = reminders.filter(reminder => reminder.id !== reminderId);
+    localStorage.setItem('tripReminders', JSON.stringify(updatedReminders));
+    displayReminders(); // Refresh the display
+}
+
+// Initialize reminders when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    // Set up click event for the add reminder button
+    const addReminderBtn = document.querySelector('.add-reminder');
+    if (addReminderBtn) {
+        addReminderBtn.addEventListener('click', showReminderOverlay);
+    }
+    
+    // Set up event delegation for delete buttons
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('.delete-reminder')) {
+            const deleteBtn = e.target.closest('.delete-reminder');
+            const reminderId = deleteBtn.getAttribute('data-reminder-id');
+            deleteReminder(reminderId);
+        }
+    });
+    
+    // Display existing reminders
+    displayReminders();
+});
 
 function displayNoTripMessage() {
     const summaryContainer = document.querySelector('.trip-summary-con');

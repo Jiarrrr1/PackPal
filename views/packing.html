@@ -559,6 +559,11 @@
         }
 
 
+
+        #step-indicator {
+            color: red;
+        }
+
     </style>
 
 </head>
@@ -602,6 +607,7 @@
 
             <p class="packing-text">
                 Where are you traveling to? </p>
+                <p id="step-indicator " class="inactive">Please complete this step before continuing.</p>
             <input class="tripDestination" type="text" placeholder="Enter Location">
         </div>
         <!-- step-two -->
@@ -610,6 +616,8 @@
             <p class="packing-text">
                 How long are you staying?
             </p>
+                            <p id="step-indicator " class="inactive">Please complete this step before continuing.</p>
+
             <!-- format must Month, Date - Month, Date -->
             <input class="tripDuration" type="text" placeholder="Enter Date">
         </div>
@@ -639,6 +647,8 @@
 <!-- step-four -->
 <div class="step-four-form main inactive">
     <p class="packing-text">What's the weather expected to be like?</p>
+                    <p id="step-indicator " class="inactive">Please complete this step before continuing.</p>
+
     <div class="options-con">
         <div class="checkbox-con">
             <input value="Freezing" type="checkbox" name="weather" id="weather-freezing">
@@ -681,6 +691,8 @@
 <!-- Step six -->
 <div class="step-six-form main inactive">
     <p class="packing-text">Pack items for:</p>
+                                <p id="step-indicator " class="inactive">Please complete this step before continuing.</p>
+
     <div class="options-con">
         <div class="checkbox-con">
             <input value="Female" type="checkbox" name="packing-for" id="packing-female">
@@ -719,6 +731,8 @@
 <!-- Step Eight -->
 <div class="step-eight-form main inactive">
     <p class="packing-text">Are you going swimming?</p>
+                                <p id="step-indicator " class="inactive">Please complete this step before continuing.</p>
+
     <div class="options-con">
         <div class="checkbox-con">
             <input value="Yes" type="checkbox" name="swimming" id="swimming-yes">
@@ -733,7 +747,9 @@
 
 <!-- Step nine -->
 <div class="step-nine-form main inactive">
-    <p class="packing-text">What about sports or outdoor activities?</p>
+    <p class="packing-text ">What about sports or outdoor activities?</p>
+                                <p id="step-indicator " class="inactive">Please complete this step before continuing.</p>
+
     <div class="options-con">
         <div class="checkbox-con">
             <input value="Yes" type="checkbox" name="sports" id="sports-yes">

@@ -199,13 +199,44 @@ class UserManagement {
     logout() {
         this.currentUser = null;
         localStorage.removeItem('currentUser');
+        window.location.href='/index.html'
     }
 
     resetDatabase() {
+        // Reset in-memory data
         this.USER_DB = [];
         this.currentUser = null;
+
+         // Get the latest trip data from sessionStorage
+        const latestTrip = JSON.parse(sessionStorage.getItem('latestTrip'));
+        const allTripsData = JSON.parse(sessionStorage.getItem('allTripsData')) || [];
+    
+        
+        // Clear localStorage
         localStorage.removeItem('USER_DB');
         localStorage.removeItem('currentUser');
+        localStorage.removeItem('userPackingList');
+        localStorage.removeItem('tripReminders');
+        localStorage.removeItem('tripTemplates');
+        localStorage.removeItem('userPackingListSelections');
+        
+        // Clear sessionStorage
+        sessionStorage.removeItem('latestTrip');
+        sessionStorage.removeItem('allTripsData');
+        sessionStorage.removeItem('latestTemplate');
+        
+        // Clear any other potential storage items
+        const storageKeys = Object.keys(localStorage);
+        storageKeys.forEach(key => {
+            if (key.startsWith('trip') || key.startsWith('user') || key.startsWith('packing')) {
+                localStorage.removeItem(key);
+            }
+        });
+        
+        console.log('Database reset successfully');
+
+        window.location.href = '/index.html';
+
     }
 }
 

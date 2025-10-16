@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PackPal - Dashboard</title>
+    <title>PackPal - Terms of Service</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="/style/styles.css">
     <style>
@@ -15,14 +15,8 @@
          .dashboard-container {
             display: flex;
             flex-direction: column;
-
             width: 100%;
             max-height: 100vh;
-            /* max-width: 400px;
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            padding: 30px; */
         }
 
         header {
@@ -40,8 +34,6 @@
             display: flex;
             align-items: center;
             gap: 10px;
-
-
         }
 
         .logo img {
@@ -76,11 +68,11 @@
             margin-top: 10px;
             max-width: 200px;
         }
+        
         .dashboard-header {
             font-size: 14px;
             margin-top: 15px;
         }
-
 
         .dashboard-button {
             background-color: #9EBC8A;
@@ -121,8 +113,6 @@
             font-weight: 600;
         }
 
-
-
         .user-con {
             display: flex;
             align-items: left;
@@ -145,8 +135,6 @@
             font-weight: 400;
         }
 
-        
-
         .item-menu {
             text-align: left;
             padding-top: .5rem;
@@ -154,7 +142,6 @@
 
         .item-menu h2, p {
             padding: .4rem;
-
         }
 
         .item-menu p {
@@ -198,7 +185,6 @@
             color: rgb(23, 23, 23);
         }
 
-
         .action-overlay .buttons .confirm-btn {
             background-color: #9EBC8A;
             color: rgb(23, 23, 23);
@@ -209,68 +195,219 @@
         }
 
         .legal-con {
-            text-align: justify;
-            overflow: scroll;
+            text-align: left;
             height: 70vh;
+            padding: 0 20px;
+            line-height: 1.6;
         }
 
         .legal-con::-webkit-scrollbar {
             display: none;
         }
 
-    </style>
+        .legal-section {
+            margin-bottom: 25px;
+        }
 
+        .legal-section h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .legal-section p {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 15px;
+            border: none;
+            padding: 0;
+            width: 100%;
+        }
+
+        .legal-list {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+
+        .legal-list li {
+            margin-bottom: 8px;
+            text-align: left;
+            align-items: flex-start;
+            flex-direction: row;
+        }
+
+        .last-updated {
+            text-align: center;
+            font-style: italic;
+            color: #888;
+            margin-top: 30px;
+            padding: 10px;
+            border-top: 1px solid #e9ecef;
+        }
+    </style>
 </head>
 
 <body>
     <div class="main-con">
         <div class="dashboard-container">
-        <header>
-            <div class="logo">
-                <span>
-                    <img src="/images/Logo.png" alt="">
-                </span>
-                <h1>PackPal</h1>
+            <header>
+                <div class="logo">
+                    <span>
+                        <img src="/images/Logo.png" alt="PackPal Logo">
+                    </span>
+                    <h1>PackPal</h1>
+                </div>
+            </header>
+
+            <div class="dashboard-header">
+                <h1>Terms of Service</h1>
+                <p>OVERVIEW</p>
             </div>
 
-        </header>
+            <div class="main">
+                <div class="legal-con">
+                    <div class="legal-section">
+                        <h3>1. Acceptance of Terms</h3>
+                        <p>Welcome to PackPal ("the App"). By accessing or using PackPal, you agree to be bound by these Terms of Service and our Privacy Policy. If you do not agree to these terms, please do not use the App.</p>
+                    </div>
 
-        <div class="dashboard-header">
-            <h1>Terms of Service</h1>
-            <p>OVERVIEW</p>
-        </div>
-        <!-- step-one -->
-        <div class="main">
-            <div class="legal-con">
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus ab harum placeat, temporibus rem quis eveniet tempora cumque quaerat sapiente sint consequatur, velit dolores rerum dolorem, animi mollitia ratione neque? Lorem ipsum dolor sit amet consectetur adipisicing elit. In culpa sunt rerum facilis sequi officiis illo porro. Fuga, qui! Rem, sequi? Voluptatem exercitationem dolores debitis voluptatibus veniam odit fuga quod!Lorem Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum nemo, sunt atque incidunt asperiores exercitationem culpa, doloribus, sequi eveniet voluptate saepe soluta labore deleniti ab inventore veritatis delectus dicta a. Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta eveniet explicabo sit id expedita quas rerum natus perferendis facere nemo nam molestiae ratione odit aspernatur, accusantium fugit consequatur assumenda similique! Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum ducimus aperiam dolorem cumque nostrum natus distinctio ratione perspiciatis? Tempore dolorem sed id vel dolorum temporibus esse repellendus numquam officiis rem? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Labore fugit ipsum totam, odit ab, quo consequatur reiciendis accusamus officia sint deleniti sunt. Aliquid tempora fugiat tempore. Molestias non doloribus sed.
-                </p>
+                    <div class="legal-section">
+                        <h3>2. Description of Service</h3>
+                        <p>PackPal is a travel packing list application that helps users:</p>
+                        <ul class="legal-list">
+                            <li>• Create and manage packing lists for trips</li>
+                            <li>• Generate suggested packing items based on trip details</li>
+                            <li>• Save packing lists as templates</li>
+                            <li>• Set travel reminders</li>
+                            <li>• Organize travel essentials by categories</li>
+                        </ul>
+                    </div>
+
+                    <div class="legal-section">
+                        <h3>3. User Accounts</h3>
+                        <p><strong>3.1 Account Creation</strong><br>
+                        You may use certain features without creating an account. For full functionality, you may need to create an account. You must provide accurate and complete information during registration.</p>
+                        
+                        <p><strong>3.2 Account Security</strong><br>
+                        You are responsible for all activities under your account. Notify us immediately of any unauthorized use of your account. We reserve the right to disable accounts that violate these terms.</p>
+                    </div>
+
+                    <div class="legal-section">
+                        <h3>4. User Responsibilities</h3>
+                        <p><strong>4.1 Acceptable Use</strong><br>
+                        You agree to use PackPal only for lawful purposes and in accordance with these terms. You agree not to:</p>
+                        <ul class="legal-list">
+                            <li>• Use the App in any way that violates applicable laws</li>
+                            <li>• Impersonate any person or entity</li>
+                            <li>• Engage in any conduct that restricts others from using the App</li>
+                            <li>• Attempt to gain unauthorized access to the App or related systems</li>
+                        </ul>
+                    </div>
+
+                    <div class="legal-section">
+                        <h3>5. Data Storage and Privacy</h3>
+                        <p><strong>5.1 Local Storage</strong><br>
+                        Packing lists and trip data are stored locally on your device. Some data may be backed up to your device's cloud services. We do not have access to your locally stored data.</p>
+                        
+                        <p><strong>5.2 Data Collection</strong><br>
+                        We may collect usage statistics to improve the App, crash reports for debugging purposes, and anonymous analytics to understand feature usage.</p>
+                    </div>
+
+                    <div class="legal-section">
+                        <h3>6. Intellectual Property</h3>
+                        <p><strong>6.1 Our Rights</strong><br>
+                        PackPal, including its software, design, logos, and content, is protected by intellectual property laws. You may not copy, modify, reverse engineer, or remove copyright notices.</p>
+                        
+                        <p><strong>6.2 Your Rights</strong><br>
+                        You maintain all rights to your personal packing lists and trip data.</p>
+                    </div>
+
+                    <div class="legal-section">
+                        <h3>7. Disclaimer of Warranties</h3>
+                        <p>THE APP IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND. WE DO NOT GUARANTEE THAT the App will be error-free, packing suggestions will be complete or accurate, all features will always be available, or your data will never be lost.</p>
+                    </div>
+
+                    <div class="legal-section">
+                        <h3>8. Limitation of Liability</h3>
+                        <p>TO THE FULLEST EXTENT PERMITTED BY LAW, PACKPAL SHALL NOT BE LIABLE FOR any indirect, incidental, or consequential damages, loss of data or packing lists, travel issues resulting from incomplete packing lists, or third-party services integrated with the App.</p>
+                    </div>
+
+                    <div class="legal-section">
+                        <h3>9. Travel Responsibility Disclaimer</h3>
+                        <p>PackPal provides packing suggestions based on the information you provide. You are solely responsible for verifying travel requirements, ensuring you have all necessary items for your trip, compliance with regulations, and your personal safety.</p>
+                    </div>
+
+                    <div class="legal-section">
+                        <h3>10. Modifications to Service</h3>
+                        <p>We reserve the right to modify or discontinue features at any time, update these Terms of Service, and change pricing for premium features (if any). We will notify users of significant changes to these terms.</p>
+                    </div>
+
+                    <div class="legal-section">
+                        <h3>11. Termination</h3>
+                        <p>We may suspend or terminate your access to PackPal if you violate these Terms of Service, engage in fraudulent or illegal activities, or create risk or possible legal exposure for us.</p>
+                    </div>
+
+                    <div class="legal-section">
+                        <h3>12. Third-Party Services</h3>
+                        <p>PackPal may integrate with or link to third-party services. We are not responsible for the content or practices of third-party services, any transactions with third parties, or the accuracy of information provided by third parties.</p>
+                    </div>
+
+                    <div class="legal-section">
+                        <h3>13. Age Requirements</h3>
+                        <p>You must be at least 13 years old to use PackPal. If you are under 18, you represent that you have your parent or guardian's permission to use the App.</p>
+                    </div>
+
+                    <div class="legal-section">
+                        <h3>14. Governing Law</h3>
+                        <p>These Terms shall be governed by the applicable laws of your jurisdiction.</p>
+                    </div>
+
+                    <div class="legal-section">
+                        <h3>15. Changes to Terms</h3>
+                        <p>We may update these Terms of Service from time to time. We will notify you of any changes by posting the new Terms on this page and updating the "Last Updated" date.</p>
+                    </div>
+
+                    <div class="legal-section">
+                        <h3>16. Contact Information</h3>
+                        <p>If you have any questions about these Terms of Service, please contact us at support@packpal.app</p>
+                    </div>
+
+                    <div class="legal-section">
+                        <h3>17. Severability</h3>
+                        <p>If any provision of these Terms is held to be invalid or unenforceable, the remaining provisions will remain in full force and effect.</p>
+                    </div>
+
+                    <div class="legal-section">
+                        <h3>18. Entire Agreement</h3>
+                        <p>These Terms constitute the entire agreement between you and PackPal regarding the use of the App.</p>
+                    </div>
+
+                </div>
             </div>
-        </div>
 
-        <nav>
-            <ul>
-                <li id="tripsBtn" >
-                    <a href="/views/dashboard.html"><img src="/images/SVGs/InactivePlaneIcon.svg" alt=""></a>
-                    <a href="/views/dashboard.html"> Trips </a>
-                </li>
-            </ul>
-            <ul>
-                <li>
-                    <a href="/views/templates.html"><img src="/images/SVGs/InactiveTemplateIcon.svg" alt=""></a>
-                    <a href="/views/templates.html"> Templates </a>
-                </li>
-            </ul>
-            <ul>
-                <li>
-                    <a href="/views/profile.html">                    <img src="/images/SVGs/ActivePlaneIcon.svg" alt="">
-</a>
-                    <a href="/views/profile.html"> Profile</a>
-                </li>
-            </ul>
-        </nav>
+            <nav>
+                <ul>
+                    <li id="tripsBtn">
+                        <a href="/views/dashboard.html"><img src="/images/SVGs/InactivePlaneIcon.svg" alt="Trips"></a>
+                        <a href="/views/dashboard.html">Trips</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <a href="/views/templates.html"><img src="/images/SVGs/InactiveTemplateIcon.svg" alt="Templates"></a>
+                        <a href="/views/templates.html">Templates</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <a href="/views/profile.html"><img src="/images/SVGs/ActivePlaneIcon.svg" alt="Profile"></a>
+                        <a href="/views/profile.html">Profile</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </div>
-    </div>
+
     <div class="backdrop inactive">
         <div class="backdrop-content action-overlay">
             <h2 class="backdrop-text"></h2>
@@ -280,10 +417,9 @@
             </div>
         </div>
     </div>
+
     <script src="/script/app.js"></script>
-
-<script src="/script/userManagement.js"></script>
-<script src="/script/profile.js"></script>
+    <script src="/script/userManagement.js"></script>
+    <script src="/script/profile.js"></script>
 </body>
-
 </html>
