@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>PackPal - Terms of Service</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="/style/styles.css">
@@ -72,7 +72,20 @@
         .dashboard-header {
             font-size: 14px;
             margin-top: 15px;
+            width: 330px;
+            display: flex;
         }
+
+        .dashboard-header #back-button i {
+            position: relative;
+            top: 10px;
+        }
+
+        .dashboard-header h1 {
+            width: 300px;
+            margin: 0 auto;
+        }
+
 
         .dashboard-button {
             background-color: #9EBC8A;
@@ -260,8 +273,13 @@
             </header>
 
             <div class="dashboard-header">
-                <h1>Terms of Service</h1>
-                <p>OVERVIEW</p>
+                <div id="back-button">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </div>
+                 <div class="dashboard-head-text">
+                    <h1>Terms of Service</h1>
+                    <p>OVERVIEW</p>
+                 </div>
             </div>
 
             <div class="main">
@@ -385,7 +403,7 @@
                 </div>
             </div>
 
-            <nav>
+            <!-- <nav>
                 <ul>
                     <li id="tripsBtn">
                         <a href="/views/dashboard.html"><img src="/images/SVGs/InactivePlaneIcon.svg" alt="Trips"></a>
@@ -404,7 +422,7 @@
                         <a href="/views/profile.html">Profile</a>
                     </li>
                 </ul>
-            </nav>
+            </nav> -->
         </div>
     </div>
 
@@ -421,5 +439,12 @@
     <script src="/script/app.js"></script>
     <script src="/script/userManagement.js"></script>
     <script src="/script/profile.js"></script>
+
+    <script >
+    // JavaScript: redirect to previous page on click
+  document.getElementById("back-button").addEventListener("click", function() {
+    window.history.back();
+  });
+</script>
 </body>
 </html>
