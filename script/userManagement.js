@@ -15,7 +15,7 @@ class UserManagement {
         } catch (error) {
             console.error('Error parsing USER_DB from localStorage:', error);
             this.USER_DB = [];
-        }
+        } 
 
         // Load current user
         const storedCurrentUser = localStorage.getItem('currentUser');
@@ -28,10 +28,24 @@ class UserManagement {
     }
 
     // User Validation Methods
-    validateUserInput(email, password, confirmPassword) {
-        if (!email || !password || !confirmPassword) {
-            throw new Error('Email, password, and confirm password are required');
-        }
+    validateUserInput( username,email, password, confirmPassword) {
+          // Check each condition separately
+    if (!username) {
+        console.error('Validation failed: username is empty');
+        throw new Error('Username, Email, password, and confirm password are required');
+    }
+    if (!email) {
+        console.error('Validation failed: email is empty');
+        throw new Error('Username, Email, password, and confirm password are required');
+    }
+    if (!password) {
+        console.error('Validation failed: password is empty');
+        throw new Error('Username, Email, password, and confirm password are required');
+    }
+    if (!confirmPassword) {
+        console.error('Validation failed: confirmPassword is empty');
+        throw new Error('Username, Email, password, and confirm password are required');
+    }
 
         const existingUser = this.USER_DB.find(user => user.email === email);
         if (existingUser) {
@@ -72,11 +86,11 @@ class UserManagement {
     }
 
     // Core User Operations
-    createUser(email, password, confirmPassword) {
-        this.validateUserInput(email, password, confirmPassword);
+    createUser(userName, email, password, confirmPassword) {
+        this.validateUserInput(userName, email, password, confirmPassword);
 
         const user = {
-            name: "Anonymous",
+            name: userName,
             email: email,
             password: password,
             trips: [],

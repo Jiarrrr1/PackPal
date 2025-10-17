@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PackPal - Privacy Policy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style/styles.css">
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+        }
+
+         .dashboard-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-height: 100vh;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 15px;
+            background-color: #E4EFE7;
+            padding-top: 2.3rem;
+            font-size: 12px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            height: 25px;
+            width: 25px;
+        }
+
+        .logo span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #9EBC8A;
+            border-radius: 50%;
+            height: 40px;
+            width: 40px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: .5rem;
+        }
+
+        .dashboard-text {
+            font-size: 14px;
+            font-weight: 650;
+            color: #404040;
+            margin-top: 10px;
+            max-width: 200px;
+        }
+        
+        .dashboard-header {
+            font-size: 14px;
+            margin-top: 15px;
+            width: 330px;
+            display: flex;
+        }
+
+        .dashboard-header #back-button i {
+            position: relative;
+            top: 10px;
+        }
+
+        .dashboard-header h1 {
+            width: 300px;
+            margin: 0 auto;
+        }
+
+        .dashboard-button {
+            background-color: #9EBC8A;
+            color: rgb(0, 0, 0);
+            font-weight: bolder;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 35px;
+            font-size: 16px;
+            margin-top: 2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+            padding: 15px 0;
+            background-color: #E4EFE7;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+        }
+
+        li {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        li a {
+            color: #404040;
+            margin-top: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .user-con {
+            display: flex;
+            align-items: left;
+            gap: 1rem;
+        }
+
+        .user-con i {
+            font-size: 60px;
+        }
+
+        .user-data{
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            padding-top: 5px;
+            padding-left: .5rem;
+        }
+
+        .user-data h4 {
+            font-weight: 400;
+        }
+
+        .item-menu {
+            text-align: left;
+            padding-top: .5rem;
+        }
+
+        .item-menu h2, p {
+            padding: .4rem;
+        }
+
+        .item-menu p {
+            width: 100vw;
+            border-bottom: solid black 1.5px;
+            padding: .5rem;
+            padding-left: 1rem;
+        }
+
+        .action-overlay {
+            width: 320px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 27px;
+            text-align: center;
+        }
+
+        .action-overlay h2 {
+            font-size: 14px;
+            margin-bottom: 20px;
+            color: #f0f0f0;
+        }
+
+        .action-overlay .buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .action-overlay .buttons button {
+            padding: 10px 50px;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-weight: 800;
+        }
+
+        .action-overlay .buttons .cancel-btn {
+            background-color: #ccc;
+            color: rgb(23, 23, 23);
+        }
+
+        .action-overlay .buttons .confirm-btn {
+            background-color: #9EBC8A;
+            color: rgb(23, 23, 23);
+        }
+         
+        .main {
+            padding-bottom: 8rem;
+        }
+
+        .legal-con {
+            text-align: left;
+            height: 70vh;
+            padding: 0 20px;
+            line-height: 1.6;
+            overflow-y: auto;
+        }
+
+        .legal-con::-webkit-scrollbar {
+            display: none;
+        }
+
+        .legal-section {
+            margin-bottom: 25px;
+        }
+
+        .legal-section h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .legal-section p {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 15px;
+            border: none;
+            padding: 0;
+            width: 100%;
+        }
+
+        .legal-list {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+
+        .legal-list li {
+            margin-bottom: 8px;
+            text-align: left;
+            align-items: flex-start;
+            flex-direction: row;
+        }
+
+        .last-updated {
+            text-align: center;
+            font-style: italic;
+            color: #888;
+            margin-top: 30px;
+            padding: 10px;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .policy-summary {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #9EBC8A;
+        }
+
+        .policy-summary h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .policy-summary ul {
+            padding-left: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-con">
+        <div class="dashboard-container">
+            <header>
+                <div class="logo">
+                    <span>
+                        <img src="/images/Logo.png" alt="PackPal Logo">
+                    </span>
+                    <h1>PackPal</h1>
+                </div>
+            </header>
+
+            <div class="dashboard-header">
+                <div id="back-button">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </div>
+                 <div class="dashboard-head-text">
+                    <h1>Privacy Policy</h1>
+                    <p>DATA PROTECTION</p>
+                 </div>
+            </div>
+
+            <div class="main">
+                <div class="legal-con">
+                   
+                    <div class="legal-section">
+                        <h3>1. Introduction</h3>
+                        <p>Welcome to PackPal. We are committed to protecting your privacy and being transparent about how we handle your data. This Privacy Policy explains how we collect, use, store, and protect your information when you use our travel packing list application.</p>
+                    </div>
+
+                    <div class="legal-section">
+                        <h3>2. Information We Collect</h3>
+                        <p><strong>2.1 Personal Information</strong><br>
+                        - Account Information: Username, email address, and password<br>
+                        - Profile Data: Optional information you choose to provide</p>
+                        
+                        <p><strong>2.2 Travel and Packing Data</strong><br>
+                        - Trip Details: Destination, travel dates, duration, and purpose<br>
+                        - Packing Lists: Items you add, including custom items<br>
+                        - Travel Preferences: Weather conditions and activities<br>
+                        - Templates: Saved packing list templates</p>
+                        
+                        <p><strong>2.3 Technical Information</strong><br>
+                        - Device type, operating system, and browser<br>
+                        - Usage patterns and feature interactions<br>
+                        - Anonymous crash reports and performance data</p>
+                    </div>
+
+                    <div class="legal-section">
+                        <h3>3. How We Use Your Information</h3>
+                        <p><strong>3.1 To Provide Our Services</strong><br>
+                        Create and manage packing lists, generate personalized suggestions, save templates, and enable account access.</p>
+                        
+                        <p><strong>3.2 To Improve Our Services</strong><br>
+                        Analyze usage patterns, fix bugs, improve performance, and develop new features.</p>
+                        
+                        <p><strong>3.3 Communication</strong><br>
+                        Send service updates, provide customer support, and respond to inquiries.</p>
+                    </div>
+
+                    <div class="legal-section">
+                        <h3>4. Data Storage and Security</h3>
+                        <p><strong>4.1 Local Storage</strong><br>
+                        Packing lists and trip data are stored locally on your device. Your data remains on your device unless you choose to sync or back it up.</p>
+                        
+                        <p><strong>4.2 Cloud Storage (Optional)</strong><br>
+                        If enabled, your data is encrypted and stored securely. You can disable cloud sync at any time.</p>
+                        
+                        <p><strong>4.3 Data Retention</strong><br>
+                        Your data remains available while you maintain your account. You can delete your account and all data at any time.</p>
+                    </div>
+
+                    <div class="legal-section">
+                        <h3>5. Data Sharing and Disclosure</h3>
+                        <p><strong>5.1 We Do Not Sell Your Data</strong><br>
+                        We never sell, rent, or trade your personal information to third parties.</p>
+                        
+                        <p><strong>5.2 Service Providers</strong><br>
+                        We may share limited data with trusted providers for cloud storage, analytics, and customer support.</p>
+                        
+                        <p><strong>5.3 Legal Requirements</strong><br>
+                        We may disclose information if required by law to comply with legal obligations or protect user safety.</p>
+                    </div>
+
+                    <div class="legal-section">
+                        <h3>6. Your Rights and Choices</h3>
+                        <p><strong>6.1 Access and Control</strong><br>
+                        View, edit, delete, or export your data at any time.</p>
+                        
+                        <p><strong>6.2 Account Settings</strong><br>
+                        Control privacy settings, notifications, and data sharing preferences.</p>
+                        
+                        <p><strong>6.3 Data Deletion</strong><br>
+                        Delete individual trips or your entire account. Contact support@packpal.app for assistance.</p>
+                    </div>
+
+                    <div class="legal-section">
+                        <h3>7. Children's Privacy</h3>
+                        <p>PackPal is not intended for children under 13. We do not knowingly collect personal information from children under 13.</p>
+                    </div>
+
+                    <div class="legal-section">
+                        <h3>8. Data Security</h3>
+                        <p><strong>8.1 Protection Measures</strong><br>
+                        Encryption of sensitive data, secure authentication, regular security audits, and access controls.</p>
+                        
+                        <p><strong>8.2 Your Responsibility</strong><br>
+                        Keep login credentials secure, use strong passwords, log out on shared devices, and update the app regularly.</p>
+                    </div>
+
+                    <div class="legal-section">
+                        <h3>9. Third-Party Services</h3>
+                        <p>PackPal may integrate with third-party services. This policy does not apply to third-party services - please review their privacy policies.</p>
+                    </div>
+
+                    <div class="legal-section">
+                        <h3>10. Changes to This Policy</h3>
+                        <p>We may update this Privacy Policy to reflect changes in our practices, new features, or legal requirements. We will notify you of significant changes.</p>
+                    </div>
+
+                    <div class="legal-section">
+                        <h3>11. Contact Us</h3>
+                        <p>If you have questions about this Privacy Policy or your data:<br>
+                        <strong>Email:</strong> privacy@packpal.app<br>
+                        <strong>Support:</strong> support@packpal.app</p>
+                    </div>
+
+                    <div class="legal-section">
+                        <h3>12. Your Acceptance</h3>
+                        <p>By using PackPal, you signify your acceptance of this Privacy Policy. If you do not agree, please do not use our application.</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="backdrop inactive">
+        <div class="backdrop-content action-overlay">
+            <h2 class="backdrop-text"></h2>
+            <div class="buttons">
+                <button class="confirm-btn">Yes</button>
+                <button class="cancel-btn">No</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/script/app.js"></script>
+    <script src="/script/userManagement.js"></script>
+    <script src="/script/profile.js"></script>
+
+    <script>
+    // JavaScript: redirect to previous page on click
+    document.getElementById("back-button").addEventListener("click", function() {
+        window.history.back();
+    });
+    </script>
+</body>
+</html>

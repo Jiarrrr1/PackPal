@@ -162,6 +162,15 @@
             margin-top: 2rem;
         }
 
+        .lower p {
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .lower p a {
+            text-decoration: underline;
+        }
+
         .signup-btn-con {
             display: flex;
             flex-direction: column;
@@ -326,6 +335,7 @@ input.success {
         </div>
         <div class="input-con">
             <div class="signup-inputs">
+                <input type="text" name="username" id="username" placeholder="enter username">
                 <input type="email" name="email" id="email" placeholder="enter email address">
                 <div class="password">
                     <input type="password" name="password" id="password" placeholder="enter password"> 
@@ -355,6 +365,9 @@ input.success {
                             <i class="fab fa-google"></i> continue with Google
                         </button>
                     </div>
+                    <p>
+                        By Signing Up, you agree to our <br><a href="/views/legal.html">Terms of Services</a> and <a href="/views/privacy.html">Privacy Policy</a>
+                    </p>
                 </div>
             </div>
         </div>

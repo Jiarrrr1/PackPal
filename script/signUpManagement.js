@@ -59,11 +59,12 @@ class SignupManager {
     }
 
     setupInputValidation() {
+        const userNameInput = document.getElementById('username')
         const emailInput = document.getElementById('email');
         const passwordInput = document.getElementById('password');
         const confirmPasswordInput = document.getElementById('confirmPassword');
 
-        [emailInput, passwordInput, confirmPasswordInput].forEach(input => {
+        [userNameInput, emailInput, passwordInput, confirmPasswordInput].forEach(input => {
             if (input) {
                 input.addEventListener('input', () => this.clearErrorStyles());
             }
@@ -72,6 +73,7 @@ class SignupManager {
 
     setupEnterKeySupport() {
         const inputs = [
+            document.getElementById('username'),
             document.getElementById('email'),
             document.getElementById('password'),
             document.getElementById('confirmPassword')
@@ -88,23 +90,61 @@ class SignupManager {
         });
     }
 
-    async handleSignup(e) {
-        e.preventDefault();
-        
-        const email = document.getElementById('email').value.trim();
-        const password = document.getElementById('password').value;
-        const confirmPassword = document.getElementById('confirmPassword').value;
+    handleSignup(e) {
+    e.preventDefault();
 
-        console.log('Attempting to create user:', { email, password });
+    const username = document.getElementById('username').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
 
-        try {
-            const result = userManager.createUser(email, password, confirmPassword);
-            this.showSuccess(result);
-        } catch (error) {
-            this.showError(error);
+    // Detailed debugging
+    console.log('=== SIGNUP DEBUG INFO ===');
+    console.log('Raw field values:', {
+        username: `"${username}"`,
+        email: `"${email}"`,
+        password: `"${password}"`,
+        confirmPassword: `"${confirmPassword}"`
+    });
+    
+    console.log('Field lengths:', {
+        username: username.length,
+        email: email.length,
+        password: password.length,
+        confirmPassword: confirmPassword.length
+    });
+    
+    console.log('Are fields empty?', {
+        username: !username,
+        email: !email,
+        password: !password,
+        confirmPassword: !confirmPassword
+    });
+    console.log('========================');
+
+    try {
+        // Check if userManager exists
+        if (typeof userManager === 'undefined') {
+            throw new Error('User management system is not available');
         }
-    }
 
+        console.log('Calling userManager.createUser with:', {
+            username: username,
+            email: email,
+            password: password ,
+            confirmPassword: confirmPassword
+        });
+
+        const result = userManager.createUser(username, email, password, confirmPassword);
+        this.showSuccess(result);
+    } catch (error) {
+        console.error('Signup error details:', {
+            message: error.message,
+            stack: error.stack
+        });
+        this.showError(error);
+    }
+}
     showSuccess(result) {
         console.log('User created successfully:', result);
         
@@ -137,6 +177,13 @@ class SignupManager {
 
     showError(error) {
         console.error('Error creating user:', error.message);
+        // Temporary debug - add this at the top of handleSignup
+console.log('All form elements:', {
+    username: document.getElementById('username'),
+    email: document.getElementById('email'), 
+    password: document.getElementById('password'),
+    confirmPassword: document.getElementById('confirmPassword')
+});
         
         const overlay = document.querySelector('.backdrop');
         const overlayText = document.querySelector('.confirmation-text');
@@ -163,36 +210,46 @@ class SignupManager {
 
     setErrorMessage(overlayText, errorMessage) {
         const errorMessages = {
-            'Email, password, and confirm password are required': 'All inputs are required',
+            'Username, Email, password, and confirm password are required': 'All inputs are required',
+            'Username is required': 'Username is required',
+            'Email is required': 'Email is required',
+            'Password is required': 'Password is required',
+            'Confirm password is required': 'Confirm password is required',
             'User already exists': 'User already exists',
             'Invalid email format': 'Invalid email format',
             'Password and confirm password do not match': 'Passwords do not match',
-            'Password must be at least 6 characters long': 'Password must be at least 6 characters'
+            'Password must be at least 6 characters long': 'Password must be at least 6 characters',
+            'Username must be at least 3 characters long': 'Username must be at least 3 characters'
         };
 
         overlayText.textContent = errorMessages[errorMessage] || `Error: ${errorMessage}`;
     }
 
     highlightErrorFields(errorMessage) {
+        const userNameInput = document.getElementById('username');
         const emailInput = document.getElementById('email');
         const passwordInput = document.getElementById('password');
         const confirmPasswordInput = document.getElementById('confirmPassword');
 
+        if (errorMessage.includes('Username') && userNameInput) {
+            userNameInput.classList.add('error');
+        }
         if (errorMessage.includes('Email') && emailInput) {
             emailInput.classList.add('error');
         }
-        if (errorMessage.includes('password')) {
+        if (errorMessage.includes('Password') || errorMessage.includes('password')) {
             if (passwordInput) passwordInput.classList.add('error');
             if (confirmPasswordInput) confirmPasswordInput.classList.add('error');
         }
     }
 
     clearErrorStyles() {
+        const userNameInput = document.getElementById('username');
         const emailInput = document.getElementById('email');
         const passwordInput = document.getElementById('password');
         const confirmPasswordInput = document.getElementById('confirmPassword');
 
-        [emailInput, passwordInput, confirmPasswordInput].forEach(input => {
+        [userNameInput, emailInput, passwordInput, confirmPasswordInput].forEach(input => {
             if (input) input.classList.remove('error');
         });
     }
